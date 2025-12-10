@@ -6,8 +6,8 @@ namespace Portfolio_API.Services
 {
     public class AttendanceService
     {
-        private readonly IEmployeeRepository<Attendance> _employeeRepo;
-        public AttendanceService(IEmployeeRepository<Attendance> employeeRepo)
+        private readonly IEmployeeManagementRepository<Attendance> _employeeRepo;
+        public AttendanceService(IEmployeeManagementRepository<Attendance> employeeRepo)
         {
             _employeeRepo = employeeRepo;
         }

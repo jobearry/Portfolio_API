@@ -4,17 +4,17 @@ using Portfolio_API.Models;
 
 namespace Portfolio_API.Repositories
 {
-    public interface IEmployeeRepository<T> where T : class
+    public interface IEmployeeManagementRepository<T> where T : class
     {
         Task<T?> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
     }
 
-    public class EmployeeRepository<T> : IEmployeeRepository<T> where T : class
+    public class Repository<T> : IEmployeeManagementRepository<T> where T : class
     {
         public readonly PortfolioDbContext _empContext;
         public readonly DbSet<T> _dbSet;
-        public EmployeeRepository(PortfolioDbContext context)
+        public Repository(PortfolioDbContext context)
         {
             _empContext = context;
             _dbSet = context.Set<T>();

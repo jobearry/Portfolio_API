@@ -16,13 +16,14 @@ namespace Portfolio_API
             // Register DbContext
             services.AddDbContext<PortfolioDbContext>(options =>
                 options.UseSqlite(connectionString));
+
             // Register generic repository
-            services.AddScoped(typeof(IEmployeeRepository<>), typeof(EmployeeRepository<>));
+            services.AddScoped(typeof(IEmployeeManagementRepository<>), typeof(Repository<>));
 
             // Register services
             services.AddScoped<EmployeeService>();
             services.AddScoped<AttendanceService>();
-            //services.AddScoped<UserService>();
+            services.AddScoped<UserService>();
 
         }
 
@@ -34,7 +35,7 @@ namespace Portfolio_API
                 {
                     Title = "JDB Portfolio API",
                     Version = "v1",
-                    Description = "A showcase of backend APIs for personal projects",
+                    Description = "Backend for my personal projects",
                     Contact = new OpenApiContact
                     {
                         Name = "Jonathan Golimlim",

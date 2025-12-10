@@ -6,8 +6,8 @@ namespace Portfolio_API.Services
 {
     public class EmployeeService
     {
-        private readonly IEmployeeRepository<Employee> _employeeRepo;
-        public EmployeeService(IEmployeeRepository<Employee> employeeRepo)
+        private readonly IEmployeeManagementRepository<Employee> _employeeRepo;
+        public EmployeeService(IEmployeeManagementRepository<Employee> employeeRepo)
         {
             _employeeRepo = employeeRepo;
         }
