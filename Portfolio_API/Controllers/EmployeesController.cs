@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio_API.Contexts;
+using Portfolio_API.Models;
+using Portfolio_API.Services;
+using System.Threading.Tasks;
 
 namespace Portfolio_API.Controllers
 {
@@ -7,16 +11,17 @@ namespace Portfolio_API.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly Services.EmployeeService _employeeService;
-        public EmployeesController(Contexts.EmployeeManagementDevContext empContext)
+        private readonly EmployeeService _employeeService;
+        public EmployeesController(EmployeeService employeeService)
         {
-            _employeeService = new Services.EmployeeService(empContext);
+            _employeeService = employeeService;
         }
 
         [HttpGet]
-        public IActionResult GetAllEmployees()
+        [EndpointSummary("Get all employee records")]
+        public async Task<ActionResult<List<Employee>>> GetAllEmployees()
         {
-            var employees = _employeeService.ViewAllEmployees();
+            var employees = await this._employeeService.ViewAllEmployees();
             return Ok(employees);
         }
     }
