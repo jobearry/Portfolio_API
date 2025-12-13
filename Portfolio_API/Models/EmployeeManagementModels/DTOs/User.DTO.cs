@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Portfolio_API.Models;
+namespace Portfolio_API.Models.EmployeeManagementModels;
 
-public partial class User
+public partial class UserDTO
 {
     public int UserId { get; set; }
 
@@ -15,5 +15,4 @@ public partial class User
 
     public string? Role { get; set; }
 
-    public virtual Employee? Employee { get; set; }
 }

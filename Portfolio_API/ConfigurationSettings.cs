@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Portfolio_API.Contexts;
 using Portfolio_API.Repositories;
-using Portfolio_API.Services;
+using Portfolio_API.Services.EmployeeManagementService;
 
 namespace Portfolio_API
 {
@@ -18,7 +18,7 @@ namespace Portfolio_API
                 options.UseSqlite(connectionString));
 
             // Register generic repository
-            services.AddScoped(typeof(IEmployeeManagementRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(ICommonRepository<>), typeof(CommonRepository<>));
 
             // Register services
             services.AddScoped<EmployeeService>();

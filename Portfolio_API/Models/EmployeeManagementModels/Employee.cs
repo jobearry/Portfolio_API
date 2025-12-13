@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Portfolio_API.Models;
+namespace Portfolio_API.Models.EmployeeManagementModels;
 
 public partial class Employee
 {
