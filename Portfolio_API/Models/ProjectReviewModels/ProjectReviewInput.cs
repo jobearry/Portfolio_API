@@ -1,6 +1,6 @@
 ﻿namespace Portfolio_API.Models.ProjectReviewModels
 {
-    public class ProjectInput
+    public class ProjectReviewInput
     {
         public string ProjectName { get; set; } = string.Empty;
         public string ProjectNo { get; set; } = string.Empty;
