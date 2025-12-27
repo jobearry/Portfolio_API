@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Portfolio_API.Models;
 using Portfolio_API.Models.EmployeeManagementModels;
+using Portfolio_API.Models.Resume;
 
 namespace Portfolio_API.Contexts;
 

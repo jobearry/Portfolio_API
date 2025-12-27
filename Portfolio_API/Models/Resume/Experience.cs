@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Portfolio_API.Models;
+namespace Portfolio_API.Models.Resume;
 
 public partial class Experience
 {
