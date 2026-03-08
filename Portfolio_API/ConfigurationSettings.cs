@@ -1,24 +1,30 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Portfolio_API.Contexts;
 using Portfolio_API.Models;
 using Portfolio_API.Repositories;
 using Portfolio_API.Services.EmployeeManagementService;
+using Portfolio_API.Models.DTOs;
+using Microsoft.Identity.Web;
 
 namespace Portfolio_API
 {
-    public class ConfigurationSettings
+    public static class ConfigurationServices
     {
-        public static void AddDatabase(IServiceCollection services, IConfiguration configuration)
+        public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             // Read connection string from appsettings.json or environment variables
-            var connectionString = configuration.GetConnectionString("SqLiteConnection");
+            var employeeConnectionString = configuration.GetConnectionString("SqLiteEmployeeConnection");
+            var resumeConnectionString = configuration.GetConnectionString("SqLiteResumeConnection");
 
             // Register DbContext
             services.AddDbContext<EmployeeDbContext>(options =>
-                options.UseSqlite(connectionString));
+                options.UseSqlite(employeeConnectionString));
             services.AddDbContext<ResumeDbContext>(options =>
-            options.UseSqlite(connectionString));
+            options.UseSqlite(resumeConnectionString));
 
             // Register generic repository
             services.AddScoped(typeof(ICommonRepository<>), typeof(CommonRepository<>));
@@ -29,7 +35,7 @@ namespace Portfolio_API
             services.AddScoped<UserService>();
         }
 
-        public static void AddCredits(IServiceCollection services, IConfiguration configuration)
+        public static void AddCredits(this IServiceCollection services, IConfiguration configuration)
         {
             var contactInfo = new OpenApiContact
             {
@@ -54,6 +60,23 @@ namespace Portfolio_API
                     Contact = contactInfo
                 });
             });
+        }
+    
+        public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            // Bind Jwt section to options so controllers can inject IOptions<JwtOptions>
+            services.Configure<AzureAd>(configuration.GetSection("AzureAd"));
+            
+            //set DI for JWT secret
+            var identity = configuration.GetSection("AzureAd").Get<AzureAd>()!;
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddMicrosoftIdentityWebApi(configuration.GetSection("AzureAd"));
+            
         }
     }
 }
