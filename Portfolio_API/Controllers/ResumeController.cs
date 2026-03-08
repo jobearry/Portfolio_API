@@ -14,7 +14,7 @@ namespace Portfolio_API.Controllers
     {
         [HttpGet]
         [EndpointSummary("Get all project records")]
-        public async Task<ActionResult<List<Project>>> GetAllEmployees()
+        public async Task<ActionResult<List<Project>>> GetAllProjects()
         {
             return Ok();
         }

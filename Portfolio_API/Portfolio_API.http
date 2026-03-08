@@ -1,6 +1,36 @@
 @Portfolio_API_HostAddress = http://localhost:5031
 
-GET {{Portfolio_API_HostAddress}}/weatherforecast/
+GET {{Portfolio_API_HostAddress}}/api/v1/Resume
 Accept: application/json
 
 ###
+Get {{Portfolio_API_HostAddress}}/api/v2/Employees
+Accept: application/json
+
+###
+POST {{Portfolio_API_HostAddress}}/api/v2/Employees
+Content-Type: application/json
+
+{
+  "employeeId": 0,
+  "name": "Anne Frank",
+  "department": "IT Infra",
+  "position": "IT Engineer",
+  "email": "annefrank@email.com"
+}
+
+###
+PUT {{Portfolio_API_HostAddress}}/api/v2/Employees/7
+Content-Type: application/json
+
+{
+  "employeeId": 7,
+  "name": "Anne Toke",
+  "department": "IT Infra",
+  "position": "IT Engineer",
+  "email": "annetoke@email.com"
+}
+
+###
+DELETE {{Portfolio_API_HostAddress}}/api/v2/Employees/8
+Accept: application/json
