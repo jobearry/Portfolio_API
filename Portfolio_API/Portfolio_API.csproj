@@ -30,4 +30,9 @@
     <ContainerPort Include="8081" />
   </ItemGroup>
 
+   <ItemGroup>
+     <Content Include="Data/**">
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     </Content>
+   </ItemGroup>
 </Project>
