@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Portfolio_API.Contexts;
+using Portfolio_API.Models;
 using Portfolio_API.Models.EmployeeManagementModels;
 using Portfolio_API.Repositories;
 
@@ -8,9 +9,9 @@ namespace Portfolio_API.Services.EmployeeManagementService
     public class EmployeeService
     {
         private readonly ICommonRepository<Employee> _commonRepo;
-        private readonly PortfolioDbContext _context;
+        private readonly EmployeeDbContext _context;
 
-        public EmployeeService(ICommonRepository<Employee> commonRepo, PortfolioDbContext context)
+        public EmployeeService(ICommonRepository<Employee> commonRepo, EmployeeDbContext context)
         {
             _commonRepo = commonRepo;
             _context = context;

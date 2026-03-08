@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Portfolio_API.Models.EmployeeManagementModels;
-using Portfolio_API.Models.Resume;
 
 namespace Portfolio_API.Contexts;
 
-public partial class PortfolioDbContext : DbContext
+public partial class EmployeeDbContext : DbContext
 {
-    public PortfolioDbContext()
+    public EmployeeDbContext()
     {
     }
 
-    public PortfolioDbContext(DbContextOptions<PortfolioDbContext> options)
+    public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options)
         : base(options)
     {
     }
@@ -23,50 +22,8 @@ public partial class PortfolioDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<Experience> Experiences { get; set; }
-
-    public virtual DbSet<Project> Projects { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //for portfolio sections
-        modelBuilder.Entity<Experience>(entity =>
-        {
-            entity.ToTable("experiences");
-
-            entity.HasIndex(e => e.ExperienceId, "IX_experiences_experience_id").IsUnique();
-
-            entity.Property(e => e.ExperienceId).HasColumnName("experience_id");
-            entity.Property(e => e.CompanyName)
-                .HasColumnType("VARCHAR(255)")
-                .HasColumnName("company_name");
-            entity.Property(e => e.Description)
-                .HasColumnType("varchar(255)")
-                .HasColumnName("description");
-            entity.Property(e => e.StartedAt)
-                .HasColumnType("varchar(255)")
-                .HasColumnName("started_at");
-        });
-
-        modelBuilder.Entity<Project>(entity =>
-        {
-            entity.ToTable("projects");
-
-            entity.HasIndex(e => e.ProjectId, "IX_projects_project_id").IsUnique();
-
-            entity.Property(e => e.ProjectId).HasColumnName("project_id");
-            entity.Property(e => e.CoverImg)
-                .HasColumnType("varchar(255)")
-                .HasColumnName("cover_img");
-            entity.Property(e => e.Description)
-                .HasColumnType("varchar(255)")
-                .HasColumnName("description");
-            entity.Property(e => e.Duration)
-                .HasColumnType("varchar(255)")
-                .HasColumnName("duration");
-        });
-        //===============================================
-
         modelBuilder.Entity<Attendance>(entity =>
         {
             entity.ToTable("attendance");
@@ -78,9 +35,7 @@ public partial class PortfolioDbContext : DbContext
             entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
             entity.Property(e => e.Status).HasColumnName("status");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.Attendances)
-                .HasForeignKey(d => d.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(d => d.Employee).WithMany(p => p.Attendances).HasForeignKey(d => d.EmployeeId);
         });
 
         modelBuilder.Entity<Employee>(entity =>
@@ -108,9 +63,7 @@ public partial class PortfolioDbContext : DbContext
             entity.Property(e => e.Role).HasColumnName("role");
             entity.Property(e => e.Username).HasColumnName("username");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.Users)
-                .HasForeignKey(d => d.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(d => d.Employee).WithMany(p => p.Users).HasForeignKey(d => d.EmployeeId);
         });
 
         OnModelCreatingPartial(modelBuilder);

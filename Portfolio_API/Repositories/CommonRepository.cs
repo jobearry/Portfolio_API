@@ -16,9 +16,9 @@ namespace Portfolio_API.Repositories
 
     public class CommonRepository<T> : ICommonRepository<T> where T : class
     {
-        public readonly PortfolioDbContext _dbContext;
+        public readonly EmployeeDbContext _dbContext;
         public readonly DbSet<T> _dbSet;
-        public CommonRepository(PortfolioDbContext context)
+        public CommonRepository(EmployeeDbContext context)
         {
             _dbContext = context;
             _dbSet = context.Set<T>();

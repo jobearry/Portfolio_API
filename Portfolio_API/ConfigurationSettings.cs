@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Portfolio_API.Contexts;
+using Portfolio_API.Models;
 using Portfolio_API.Repositories;
 using Portfolio_API.Services.EmployeeManagementService;
 
@@ -14,9 +15,10 @@ namespace Portfolio_API
             var connectionString = configuration.GetConnectionString("SqLiteConnection");
 
             // Register DbContext
-            services.AddDbContext<PortfolioDbContext>(options =>
+            services.AddDbContext<EmployeeDbContext>(options =>
                 options.UseSqlite(connectionString));
-
+            services.AddDbContext<ResumeDbContext>(options =>
+            options.UseSqlite(connectionString));
 
             // Register generic repository
             services.AddScoped(typeof(ICommonRepository<>), typeof(CommonRepository<>));

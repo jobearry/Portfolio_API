@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio_API.Contexts;
 using Portfolio_API.Models.EmployeeManagementModels;
 using Portfolio_API.Services.EmployeeManagementService;
 using System.Threading.Tasks;

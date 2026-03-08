@@ -14,15 +14,15 @@ ConfigurationSettings.AddDatabase(builder.Services, builder.Configuration);
 var app = builder.Build();
 
 //Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI(ui =>
     {
         ui.SwaggerEndpoint("v2/swagger.json", "JDB Portfolio API v2");
         ui.SwaggerEndpoint("v1/swagger.json", "JDB Portfolio API v1");
     });
-}
+// }
 
 app.UseHttpsRedirection();
 
