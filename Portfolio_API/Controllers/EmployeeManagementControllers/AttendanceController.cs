@@ -4,7 +4,8 @@ using Portfolio_API.Services.EmployeeManagementService;
 
 namespace Portfolio_API.Controllers.EmployeeManagementControllers
 {
-    [Route("api/[controller]")]
+    [ApiExplorerSettings(GroupName= "v2")] 
+    [Route("api/v2/[controller]")]
     [ApiController]
     public class AttendanceController : ControllerBase
     {

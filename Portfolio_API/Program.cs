@@ -17,7 +17,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(ui =>
+    {
+        ui.SwaggerEndpoint("v2/swagger.json", "JDB Portfolio API v2");
+        ui.SwaggerEndpoint("v1/swagger.json", "JDB Portfolio API v1");
+    });
 }
 
 app.UseHttpsRedirection();

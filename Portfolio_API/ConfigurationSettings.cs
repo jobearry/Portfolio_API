@@ -3,7 +3,6 @@ using Microsoft.OpenApi.Models;
 using Portfolio_API.Contexts;
 using Portfolio_API.Repositories;
 using Portfolio_API.Services.EmployeeManagementService;
-using Portfolio_API.Services.ProjectReviewServices;
 
 namespace Portfolio_API
 {
@@ -26,26 +25,31 @@ namespace Portfolio_API
             services.AddScoped<EmployeeService>();
             services.AddScoped<AttendanceService>();
             services.AddScoped<UserService>();
-
-            //Project Review Services
-            services.AddScoped<ProjectReviewInputService>();
-
         }
 
         public static void AddCredits(IServiceCollection services, IConfiguration configuration)
         {
+            var contactInfo = new OpenApiContact
+            {
+                Name = "Jonathan Golimlim",
+                Url = new Uri("https://web-resume-jg.vercel.app/")
+            };
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "JDB Portfolio API",
+                    Title = "JDB Portfolio API: v1",
                     Version = "v1",
-                    Description = "Backend for my personal projects",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Jonathan Golimlim",
-                        Url = new Uri("https://web-resume-jg.vercel.app/")
-                    }
+                    Description = "Portfolio Resource Backend Definition",
+                    Contact = contactInfo
+                });
+
+                options.SwaggerDoc("v2", new OpenApiInfo
+                {
+                    Title = "JDB Portfolio API: v2",
+                    Version = "v2",
+                    Description = "Attendance Management Backend Definition",
+                    Contact = contactInfo
                 });
             });
         }
