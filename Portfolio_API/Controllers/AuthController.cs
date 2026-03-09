@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -10,7 +7,6 @@ using Portfolio_API.Models.DTOs;
 
 namespace Portfolio_API.Controllers
 {
-    [ApiExplorerSettings(GroupName = "v1")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class AuthController : ControllerBase
@@ -21,17 +17,29 @@ namespace Portfolio_API.Controllers
             _opts = opts.Value;
         }
 
-        [HttpPost("me")]
-        [EndpointSummary("Get user info")]
-        public async Task<ActionResult> GetUser()
+        [HttpGet("whoami")]
+        [Authorize]
+        [EndpointSummary("Get current user info from token claims")]
+        public ActionResult GetUser()
         {
-            var oid = User.FindFirst("oid")?.Value ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var tid = User.FindFirst("tid")?.Value;
-            var roles = User.Claims.Where(c => c.Type == "roles").Select(c => c.Value).ToArray();
+            var allClaims = User.Claims
+                .GroupBy(c => c.Type)
+                .ToDictionary(g => g.Key, g => g.Select(c => c.Value).ToArray());
 
-            if (!roles.Contains("MyAppRole")) return Forbid();
+            var oid   = User.FindFirst("oid")?.Value
+                     ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var tid   = User.FindFirst("tid")?.Value
+                     ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+            var name  = User.FindFirst("name")?.Value
+                     ?? User.FindFirst(ClaimTypes.Name)?.Value;
+            var email = User.FindFirst("preferred_username")?.Value
+                     ?? User.FindFirst(ClaimTypes.Email)?.Value;
+            var scopes = User.FindFirst("scp")?.Value?.Split(' ');
+            var roles  = User.Claims.Where(c => c.Type == "roles"
+                             || c.Type == ClaimTypes.Role)
+                             .Select(c => c.Value).ToArray();
 
-            return Ok(new { oid, tid, roles });
+            return Ok(new { oid, tid, name, email, roles, scopes, allClaims });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio_API.Models.EmployeeManagementModels;
 using Portfolio_API.Services.EmployeeManagementService;
@@ -8,6 +9,7 @@ namespace Portfolio_API.Controllers.EmployeeManagementControllers
     [ApiExplorerSettings(GroupName= "v2")] 
     [Route("api/v2/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;

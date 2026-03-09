@@ -37,6 +37,8 @@ namespace Portfolio_API
 
         public static void AddCredits(this IServiceCollection services, IConfiguration configuration)
         {
+            var azureAd = configuration.GetSection("AzureAd").Get<AzureAd>()!;
+
             var contactInfo = new OpenApiContact
             {
                 Name = "Jonathan Golimlim",
@@ -59,16 +61,40 @@ namespace Portfolio_API
                     Description = "Attendance Management Backend Definition",
                     Contact = contactInfo
                 });
+
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri($"https://login.microsoftonline.com/{azureAd.TenantId}/oauth2/v2.0/authorize"),
+                            TokenUrl = new Uri($"https://login.microsoftonline.com/{azureAd.TenantId}/oauth2/v2.0/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { azureAd.Scope, "Access the Portfolio API" }
+                            }
+                        }
+                    }
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+                        },
+                        new[] { azureAd.Scope }
+                    }
+                });
             });
         }
     
         public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            // Bind Jwt section to options so controllers can inject IOptions<JwtOptions>
             services.Configure<AzureAd>(configuration.GetSection("AzureAd"));
-            
-            //set DI for JWT secret
-            var identity = configuration.GetSection("AzureAd").Get<AzureAd>()!;
 
             services.AddAuthentication(options =>
             {

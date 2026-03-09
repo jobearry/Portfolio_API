@@ -22,6 +22,8 @@ var app = builder.Build();
     {
         ui.SwaggerEndpoint("v2/swagger.json", "JDB Portfolio API v2");
         ui.SwaggerEndpoint("v1/swagger.json", "JDB Portfolio API v1");
+        ui.OAuthClientId(builder.Configuration["AzureAd:ClientId"]);
+        ui.OAuthUsePkce();
     });
 // }
 
