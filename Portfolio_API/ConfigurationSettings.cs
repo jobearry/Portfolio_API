@@ -42,7 +42,7 @@ namespace Portfolio_API
             var contactInfo = new OpenApiContact
             {
                 Name = "Jonathan Golimlim",
-                Url = new Uri("https://web-resume-jg.vercel.app/")
+                Url = new Uri("https://ng-web-resume.vercel.app/")
             };
             services.AddSwaggerGen(options =>
             {
