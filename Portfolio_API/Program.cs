@@ -8,8 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-ConfigurationSettings.AddCredits(builder.Services, builder.Configuration);
-ConfigurationSettings.AddDatabase(builder.Services, builder.Configuration);
+builder.Services.AddCredits(builder.Configuration);
+builder.Services.AddDatabase(builder.Configuration);
+builder.Services.AddAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
@@ -21,11 +22,14 @@ var app = builder.Build();
     {
         ui.SwaggerEndpoint("v2/swagger.json", "JDB Portfolio API v2");
         ui.SwaggerEndpoint("v1/swagger.json", "JDB Portfolio API v1");
+        ui.OAuthClientId(builder.Configuration["AzureAd:ClientId"]);
+        ui.OAuthUsePkce();
     });
 // }
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
