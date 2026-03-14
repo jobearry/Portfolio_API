@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Portfolio_API.Models.EmployeeManagementModels;
+namespace Portfolio_API.Models.EmployeeManagementModels.DTOs;
 
-public partial class UserDTO
+public partial class DTOUser
 {
     public int UserId { get; set; }
 

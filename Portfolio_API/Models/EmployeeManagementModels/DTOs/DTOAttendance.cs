@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Portfolio_API.Models.EmployeeManagementModels;
+namespace Portfolio_API.Models.EmployeeManagementModels.DTOs;
 
-public partial class AttendanceDTO
+public partial class DTOAttendance
 {
     public int AttendanceId { get; set; }
 
