@@ -14,19 +14,19 @@ namespace Portfolio_API.Controllers
     [Route("api/v1/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly AzureAd _opts;
+        private readonly EntraOptions _entraOpts;
         private readonly JwtOptions _jwtOpts;
-        public AuthController(IOptions<AzureAd> opts, IOptions<JwtOptions> jwtOpts)
+        public AuthController(IOptions<EntraOptions> entraOpts, IOptions<JwtOptions> jwtOpts)
         {
-            _opts = opts.Value;
+            _entraOpts = entraOpts.Value;
             _jwtOpts = jwtOpts.Value;
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] string key)
+        public IActionResult Login([FromBody] DTOAuth auth)
         {
             // Validate user credentials
-            var providedKey = key ?? string.Empty;
+            var providedKey = auth.Key ?? string.Empty;
             var configuredKey = _jwtOpts.Key ?? string.Empty;
 
             // convert to bytes (use UTF8 if storing plain text secret), then fixed-time compare
@@ -71,20 +71,20 @@ namespace Portfolio_API.Controllers
                 .GroupBy(c => c.Type)
                 .ToDictionary(g => g.Key, g => g.Select(c => c.Value).ToArray());
 
-            var oid   = User.FindFirst("oid")?.Value
-                     ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var tid   = User.FindFirst("tid")?.Value
-                     ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-            var name  = User.FindFirst("name")?.Value
-                     ?? User.FindFirst(ClaimTypes.Name)?.Value;
-            var email = User.FindFirst("preferred_username")?.Value
-                     ?? User.FindFirst(ClaimTypes.Email)?.Value;
-            var scopes = User.FindFirst("scp")?.Value?.Split(' ');
-            var roles  = User.Claims.Where(c => c.Type == "roles"
-                             || c.Type == ClaimTypes.Role)
-                             .Select(c => c.Value).ToArray();
+            //var oid   = User.FindFirst("oid")?.Value
+            //         ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            //var tid   = User.FindFirst("tid")?.Value
+            //         ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+            //var name  = User.FindFirst("name")?.Value
+            //         ?? User.FindFirst(ClaimTypes.Name)?.Value;
+            //var email = User.FindFirst("preferred_username")?.Value
+            //         ?? User.FindFirst(ClaimTypes.Email)?.Value;
+            //var scopes = User.FindFirst("scp")?.Value?.Split(' ');
+            //var roles  = User.Claims.Where(c => c.Type == "roles"
+            //                 || c.Type == ClaimTypes.Role)
+            //                 .Select(c => c.Value).ToArray();
 
-            return Ok(new { oid, tid, name, email, roles, scopes, allClaims });
+            return Ok(allClaims);
         }
     }
 }

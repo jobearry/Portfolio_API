@@ -4,9 +4,17 @@ GET {{Portfolio_API_HostAddress}}/api/v1/Resume
 Accept: application/json
 ###
 
+
 ###
 Get {{Portfolio_API_HostAddress}}/api/v2/Employees
 Accept: application/json
+
+###
+POST {{{{Portfolio_API_HostAddress}}}}/api/v1/Auth/login
+Content-Type: application/json
+{
+  "key": "admin",
+}
 
 ###
 POST {{Portfolio_API_HostAddress}}/api/v2/Employees

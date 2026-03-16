@@ -50,7 +50,7 @@ namespace Portfolio_API
 
         public static void AddCredits(this IServiceCollection services, IConfiguration configuration)
         {
-            var azureAd = configuration.GetSection("AzureAd").Get<AzureAd>()!;
+            var azureAd = configuration.GetSection("AzureAd").Get<EntraOptions>()!;
 
             var contactInfo = new OpenApiContact
             {
@@ -112,7 +112,7 @@ namespace Portfolio_API
     
         public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.Configure<AzureAd>(configuration.GetSection("AzureAd"));
+            services.Configure<EntraOptions>(configuration.GetSection("AzureAd"));
             // bind options and register
             services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
             var jwtOptions = configuration.GetSection("Jwt").Get<JwtOptions>()!;

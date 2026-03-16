@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio_API.Models.DTOs
 {
-    public class AzureAd
+    public class EntraOptions
     {
         public string Instance {get; set;} = "https://login.microsoftonline.com/";
         public string TenantId {get; set;} = string.Empty;
