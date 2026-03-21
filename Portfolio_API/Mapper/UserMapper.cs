@@ -1,5 +1,5 @@
-﻿using Portfolio_API.Models.EmployeeManagementModels;
-using Portfolio_API.Models.EmployeeManagementModels.DTOs;
+﻿using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
+using Portfolio_API.DataTypes.Models.EmployeeManagementModels.DTOs;
 
 namespace Portfolio_API.Mapper
 {

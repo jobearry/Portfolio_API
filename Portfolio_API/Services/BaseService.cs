@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Portfolio_API.Contexts;
+using Portfolio_API.DataAccess.Contexts;
 using Portfolio_API.Mapper;
-using Portfolio_API.Models.EmployeeManagementModels;
-using Portfolio_API.Repositories;
+using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
+using Portfolio_API.DataAccess.Repositories;
 
 namespace Portfolio_API.Services
 {

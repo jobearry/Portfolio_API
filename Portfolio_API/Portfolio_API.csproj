@@ -13,15 +13,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.24" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.*">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.22" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.22">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.Identity.Web" Version="4.5.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.*" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
@@ -34,6 +25,17 @@
    <ItemGroup>
      <Content Include="Data/**">
        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
      </Content>
+     <Content Include="..\Portfolio_API.DataAccess\Data\**\*">
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+       <Link>Data\%(RecursiveDir)%(Filename)%(Extension)</Link>
+     </Content>
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\Portfolio_API.DataAccess\Portfolio_API.DataAccess.csproj" />
+      <ProjectReference Include="..\Portfolio_API.DataTypes\Portfolio_API.DataTypes.csproj" />
    </ItemGroup>
 </Project>

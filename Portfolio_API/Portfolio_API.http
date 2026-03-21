@@ -8,12 +8,14 @@ Accept: application/json
 ###
 Get {{Portfolio_API_HostAddress}}/api/v2/Employees
 Accept: application/json
+Authorization: Bearer 
 
 ###
-POST {{{{Portfolio_API_HostAddress}}}}/api/v1/Auth/login
+POST {{Portfolio_API_HostAddress}}/api/v1/Auth/login
 Content-Type: application/json
+
 {
-  "key": "admin",
+"key": "admin"
 }
 
 ###

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio_API.Models.Resume;
+using Portfolio_API.DataTypes.Models.Resume;
 
 namespace Portfolio_API.Controllers
 {

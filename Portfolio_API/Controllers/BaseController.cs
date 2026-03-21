@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio_API.Models.EmployeeManagementModels;
+using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 using Portfolio_API.Services;
 
 namespace Portfolio_API.Controllers

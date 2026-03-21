@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Portfolio_API.Models.DTOs;
+using Portfolio_API.DataTypes.Models.DTOs;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -70,19 +70,6 @@ namespace Portfolio_API.Controllers
             var allClaims = User.Claims
                 .GroupBy(c => c.Type)
                 .ToDictionary(g => g.Key, g => g.Select(c => c.Value).ToArray());
-
-            //var oid   = User.FindFirst("oid")?.Value
-            //         ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            //var tid   = User.FindFirst("tid")?.Value
-            //         ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-            //var name  = User.FindFirst("name")?.Value
-            //         ?? User.FindFirst(ClaimTypes.Name)?.Value;
-            //var email = User.FindFirst("preferred_username")?.Value
-            //         ?? User.FindFirst(ClaimTypes.Email)?.Value;
-            //var scopes = User.FindFirst("scp")?.Value?.Split(' ');
-            //var roles  = User.Claims.Where(c => c.Type == "roles"
-            //                 || c.Type == ClaimTypes.Role)
-            //                 .Select(c => c.Value).ToArray();
 
             return Ok(allClaims);
         }

@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Portfolio_API.Contexts;
+using Portfolio_API.DataAccess.Contexts;
 using Portfolio_API.Mapper;
-using Portfolio_API.Models;
-using Portfolio_API.Models.DTOs;
-using Portfolio_API.Models.EmployeeManagementModels;
-using Portfolio_API.Models.EmployeeManagementModels.DTOs;
-using Portfolio_API.Repositories;
+using Portfolio_API.DataTypes.Models;
+using Portfolio_API.DataTypes.Models.DTOs;
+using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
+using Portfolio_API.DataTypes.Models.EmployeeManagementModels.DTOs;
+using Portfolio_API.DataAccess.Repositories;
 using Portfolio_API.Services;
 using System;
 using System.Text;
@@ -34,11 +34,6 @@ namespace Portfolio_API
             // Register generic repository
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
-            //// Register services
-            //services.AddScoped<EmployeeService>();
-            //services.AddScoped<AttendanceService>();
-            //services.AddScoped<UserService>();
-
             //Common Services
             services.AddScoped(typeof(IBaseService<,>), typeof(BaseService<,>));
 
@@ -61,7 +56,7 @@ namespace Portfolio_API
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "JDB Portfolio API: v1",
+                    Title = "JDB Portfolio API: Portfolio",
                     Version = "v1",
                     Description = "Portfolio Resource Backend Definition",
                     Contact = contactInfo
@@ -69,7 +64,7 @@ namespace Portfolio_API
 
                 options.SwaggerDoc("v2", new OpenApiInfo
                 {
-                    Title = "JDB Portfolio API: v2",
+                    Title = "JDB Portfolio API: Employee Management",
                     Version = "v2",
                     Description = "Attendance Management Backend Definition",
                     Contact = contactInfo
@@ -81,19 +76,6 @@ namespace Portfolio_API
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                     Scheme = "bearer",
                     BearerFormat = "JWT"
-
-                    //Flows = new OpenApiOAuthFlows
-                    //{
-                    //    AuthorizationCode = new OpenApiOAuthFlow
-                    //    {
-                    //        AuthorizationUrl = new Uri($"https://login.microsoftonline.com/{azureAd.TenantId}/oauth2/v2.0/authorize"),
-                    //        TokenUrl = new Uri($"https://login.microsoftonline.com/{azureAd.TenantId}/oauth2/v2.0/token"),
-                    //        Scopes = new Dictionary<string, string>
-                    //        {
-                    //            { azureAd.Scope, "Access the Portfolio API" }
-                    //        }
-                    //    }
-                    //}
                 });
 
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -103,7 +85,6 @@ namespace Portfolio_API
                         {
                             Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
                         },
-                        //new[] { azureAd.Scope }
                         new string[] { }
                     }
                 });
@@ -112,11 +93,13 @@ namespace Portfolio_API
     
         public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<EntraOptions>(configuration.GetSection("AzureAd"));
             // bind options and register
+            services.Configure<EntraOptions>(configuration.GetSection("AzureAd"));
             services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
+
             var jwtOptions = configuration.GetSection("Jwt").Get<JwtOptions>()!;
             var jwtKey = Encoding.UTF8.GetBytes(jwtOptions.Key);
+            
             // register authorization
             services.AddAuthorization();
             services.AddAuthentication(options =>
@@ -126,20 +109,7 @@ namespace Portfolio_API
             })
             .AddJwtBearer(options =>
             {
-                //uncomment for entra id implementation
-                //var azureAd = configuration.GetSection("AzureAd").Get<AzureAd>()!;
-                //options.Authority = $"https://login.microsoftonline.com/{azureAd.TenantId}/v2.0";
-                //options.Audience = azureAd.ClientId;
-                //options.TokenValidationParameters = new TokenValidationParameters
-                //{
-                //    ValidateIssuer = true,
-                //    ValidIssuers = new[] { $"https://login.microsoftonline.com/{azureAd.TenantId}/v2.0" },
-                //    ValidateAudience = true,
-                //    ValidAudiences = new[] { azureAd.ClientId },
-                //    ValidateLifetime = true
-                //};
-
-                options.RequireHttpsMetadata = false; // dev only
+                options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
