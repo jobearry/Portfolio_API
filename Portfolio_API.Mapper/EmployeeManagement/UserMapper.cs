@@ -1,7 +1,7 @@
 ﻿using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels.DTOs;
 
-namespace Portfolio_API.Mapper
+namespace Portfolio_API.Mapper.EmployeeManagement
 {
     public class UserMapper : IMapper<User, DTOUser>
     {
