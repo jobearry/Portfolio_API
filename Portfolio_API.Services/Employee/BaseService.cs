@@ -3,10 +3,11 @@ using Portfolio_API.DataAccess.Contexts;
 using Portfolio_API.Mapper;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 using Portfolio_API.DataAccess.Repositories;
+using Portfolio_API.DataAccess.Repositories.EmployeeManagementRepository;
 
-namespace Portfolio_API.Services
+namespace Portfolio_API.Services.Employee
 {
-    public interface IBaseService<TEntity, TDto> 
+    public interface IEmployeeBaseService<TEntity, TDto> 
         where TEntity : class
         where TDto : class
     {
@@ -16,14 +17,14 @@ namespace Portfolio_API.Services
         Task Update(int id, TDto dto);
         Task Delete(int id);
     }
-    public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto> 
+    public class EmployeeBaseService<TEntity, TDto> : IEmployeeBaseService<TEntity, TDto> 
         where TEntity : class
         where TDto : class
     {
-        private readonly IBaseRepository<TEntity> _repository;
+        private readonly IEmployeeBaseRepository<TEntity> _repository;
         private readonly EmployeeDbContext _employeeDBContext;
         private readonly IMapper<TEntity, TDto> _mapper;
-        public BaseService(IBaseRepository<TEntity> repository, IMapper<TEntity, TDto> mapper, EmployeeDbContext employeeDBContext)
+        public EmployeeBaseService(IEmployeeBaseRepository<TEntity> repository, IMapper<TEntity, TDto> mapper, EmployeeDbContext employeeDBContext)
         {
             _repository = repository;
             _employeeDBContext = employeeDBContext;

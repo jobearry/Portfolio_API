@@ -3,9 +3,9 @@ using Portfolio_API.DataAccess.Contexts;
 using Portfolio_API.DataTypes.Models;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 
-namespace Portfolio_API.DataAccess.Repositories
+namespace Portfolio_API.DataAccess.Repositories.EmployeeManagementRepository
 {
-    public interface IBaseRepository<T> where T : class
+    public interface IEmployeeBaseRepository<T> where T : class
     {
         Task<List<T>> GetAllAsync();
         Task<T?> GetByIdAsync(int id);
@@ -14,11 +14,11 @@ namespace Portfolio_API.DataAccess.Repositories
         void Delete(T entity);
     }
 
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class EmployeeBaseRepository<T> : IEmployeeBaseRepository<T> where T : class
     {
         public readonly EmployeeDbContext _dbContext;
         public readonly DbSet<T> _dbSet;
-        public BaseRepository(EmployeeDbContext context)
+        public EmployeeBaseRepository(EmployeeDbContext context)
         {
             _dbContext = context;
             _dbSet = context.Set<T>();

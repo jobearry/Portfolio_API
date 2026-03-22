@@ -11,9 +11,13 @@ using Portfolio_API.DataTypes.Models.DTOs;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels.DTOs;
 using Portfolio_API.DataAccess.Repositories;
+using Portfolio_API.DataAccess.Repositories.EmployeeManagementRepository;
 using Portfolio_API.Services;
+using Portfolio_API.Services.Employee;
 using System.Text;
 using Portfolio_API.Mapper.EmployeeManagement;
+using Portfolio_API.DataAccess.Repositories.ResumeRepository;
+using Portfolio_API.Services.Resume;
 
 namespace Portfolio_API
 {
@@ -31,11 +35,13 @@ namespace Portfolio_API
             services.AddDbContext<ResumeDbContext>(options =>
             options.UseSqlite(resumeConnectionString));
 
-            // Register generic repository
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            // Register generic repository for Employee management
+            services.AddScoped(typeof(IEmployeeBaseRepository<>), typeof(EmployeeBaseRepository<>));
+            services.AddScoped(typeof(IResumeBaseRepository<>), typeof(ResumeBaseRepository<>));
 
             //Common Services
-            services.AddScoped(typeof(IBaseService<,>), typeof(BaseService<,>));
+            services.AddScoped(typeof(IEmployeeBaseService<,>), typeof(EmployeeBaseService<,>));
+            services.AddScoped(typeof(IResumeBaseService<>), typeof(ResumeBaseService<>));
 
             //Mapper
             services.AddScoped<IMapper<Employee,DTOEmployee>, EmployeeMapper>();

@@ -1,6 +1,4 @@
- 
-
-namespace Portfolio_API.Services.AuthServices
+namespace Portfolio_API.Services
 {
     public class AuthService
     {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels.DTOs;
 using Portfolio_API.Services;
+using Portfolio_API.Services.Employee;
 using System.Threading.Tasks;
 
 namespace Portfolio_API.Controllers.EmployeeManagement
@@ -14,6 +15,6 @@ namespace Portfolio_API.Controllers.EmployeeManagement
     [ApiController]
     public class EmployeesController : BaseController<Employee, DTOEmployee>
     {
-        public EmployeesController(IBaseService<Employee, DTOEmployee> attendanceService) : base(attendanceService) { }
+        public EmployeesController(IEmployeeBaseService<Employee, DTOEmployee> attendanceService) : base(attendanceService) { }
     }
 }

@@ -19,6 +19,9 @@ public partial class ResumeDbContext : DbContext
     public virtual DbSet<Experience> Experiences { get; set; }
 
     public virtual DbSet<Project> Projects { get; set; }
+    public virtual DbSet<TechStackDescription> TechStackDescriptions { get; set; }
+
+    public virtual DbSet<TechStackSpec> TechStackSpecs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -56,6 +59,44 @@ public partial class ResumeDbContext : DbContext
             entity.Property(e => e.Duration)
                 .HasColumnType("varchar(255)")
                 .HasColumnName("duration");
+        });
+
+        modelBuilder.Entity<TechStackDescription>(entity =>
+                {
+                    entity.ToTable("tech_stack_description");
+
+                    entity.HasIndex(e => e.Id, "IX_tech_stack_description_id").IsUnique();
+
+                    entity.Property(e => e.Id).HasColumnName("id");
+                    entity.Property(e => e.CreatedAt)
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at");
+                    entity.Property(e => e.StackName)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("stack_name");
+                });
+
+        modelBuilder.Entity<TechStackSpec>(entity =>
+        {
+            entity.ToTable("tech_stack_spec");
+
+            entity.HasIndex(e => e.Id, "IX_tech_stack_spec_id").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("DATETIME")
+                .HasColumnName("created_at");
+            entity.Property(e => e.ImgSrc)
+                .HasColumnType("varchar(255)")
+                .HasColumnName("img_src");
+            entity.Property(e => e.StackId)
+                .HasColumnType("INT")
+                .HasColumnName("stack_id");
+            entity.Property(e => e.ToolName)
+                .HasColumnType("varchar(255)")
+                .HasColumnName("tool_name");
         });
 
         OnModelCreatingPartial(modelBuilder);

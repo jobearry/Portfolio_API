@@ -2,15 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 using Portfolio_API.Services;
+using Portfolio_API.Services.Employee;
 
-namespace Portfolio_API.Controllers
+namespace Portfolio_API.Controllers.EmployeeManagement
 {
     public abstract class BaseController<TEntity, TDto> : ControllerBase
         where TEntity : class
         where TDto : class
     {
-        protected readonly IBaseService<TEntity, TDto> _baseService;
-        protected BaseController(IBaseService<TEntity, TDto> baseService)
+        protected readonly IEmployeeBaseService<TEntity, TDto> _baseService;
+        protected BaseController(IEmployeeBaseService<TEntity, TDto> baseService)
         {
             _baseService = baseService;
         }

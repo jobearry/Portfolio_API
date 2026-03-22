@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels.DTOs;
 using Portfolio_API.Services;
+using Portfolio_API.Services.Employee;
 
 namespace Portfolio_API.Controllers.EmployeeManagement
 {
@@ -13,7 +14,7 @@ namespace Portfolio_API.Controllers.EmployeeManagement
     [Authorize]
     public class UsersController : BaseController<User, DTOUser>
     {
-        public UsersController(IBaseService<User, DTOUser> userService) : base(userService) { }
+        public UsersController(IEmployeeBaseService<User, DTOUser> userService) : base(userService) { }
 
     }
 }
