@@ -30,20 +30,18 @@ namespace Portfolio_API
             var resumeConnectionString = configuration.GetConnectionString("SqLiteResumeConnection");
 
             // Register DbContext
-            services.AddDbContext<EmployeeDbContext>(options =>
-                options.UseSqlite(employeeConnectionString));
-            services.AddDbContext<ResumeDbContext>(options =>
-            options.UseSqlite(resumeConnectionString));
+            services.AddDbContext<EmployeeDbContext>(options => options.UseSqlite(employeeConnectionString));
+            services.AddDbContext<ResumeDbContext>(options => options.UseSqlite(resumeConnectionString));
 
-            // Register generic repository for Employee management
+            // Register base repository
             services.AddScoped(typeof(IEmployeeBaseRepository<>), typeof(EmployeeBaseRepository<>));
             services.AddScoped(typeof(IResumeBaseRepository<>), typeof(ResumeBaseRepository<>));
 
-            //Common Services
+            // Register base Services
             services.AddScoped(typeof(IEmployeeBaseService<,>), typeof(EmployeeBaseService<,>));
             services.AddScoped(typeof(IResumeBaseService<>), typeof(ResumeBaseService<>));
 
-            //Mapper
+            //Mapper for employee management
             services.AddScoped<IMapper<Employee,DTOEmployee>, EmployeeMapper>();
             services.AddScoped<IMapper<Attendance, DTOAttendance>, AttendanceMapper>();
             services.AddScoped<IMapper<User, DTOUser>, UserMapper>();

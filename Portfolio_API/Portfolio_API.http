@@ -1,17 +1,15 @@
-@Portfolio_API_HostAddress = http://localhost:5031
-
-GET {{Portfolio_API_HostAddress}}/api/v1/Resume
+GET {{PORTFOLIO_HOST_LOCAL}}/api/v1/TechStackDescription
 Accept: application/json
 ###
 
 
 ###
-Get {{Portfolio_API_HostAddress}}/api/v2/Employees
+Get {{PORTFOLIO_HOST_LOCAL}}/api/v2/Employees
 Accept: application/json
 Authorization: Bearer 
 
 ###
-POST {{Portfolio_API_HostAddress}}/api/v1/Auth/login
+POST {{PORTFOLIO_HOST_LOCAL}}/api/v1/Auth/login
 Content-Type: application/json
 
 {
@@ -19,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{Portfolio_API_HostAddress}}/api/v2/Employees
+POST {{PORTFOLIO_HOST_LOCAL}}/api/v2/Employees
 Content-Type: application/json
 
 {
@@ -31,7 +29,7 @@ Content-Type: application/json
 }
 
 ###
-PUT {{Portfolio_API_HostAddress}}/api/v2/Employees/7
+PUT {{PORTFOLIO_HOST_LOCAL}}/api/v2/Employees/7
 Content-Type: application/json
 
 {
@@ -43,5 +41,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{Portfolio_API_HostAddress}}/api/v2/Employees/8
+DELETE {{PORTFOLIO_HOST_LOCAL}}/api/v2/Employees/8
 Accept: application/json

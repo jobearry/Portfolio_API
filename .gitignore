@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 .github
 .vscode
+**.env.json
