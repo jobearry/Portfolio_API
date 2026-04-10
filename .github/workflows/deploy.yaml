@@ -37,5 +37,5 @@ jobs:
       - name: Deploy to jdbweb azure webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: jdbweb
-          publish-profile: ${{secrets.AZURE_JDBWEB_PUBLISH_PROFILE}}
+          app-name: jdbweb-esh0exfafehqa0hs
+          package: ./publish 
