@@ -26,7 +26,7 @@ jobs:
       - name: Publish
         run: dotnet publish -c Release -o ./publish
 
-      # 🔑 Authenticate with Azure using Service Principal
+      # 🔑 Authenticate with Azure using Service Principal 
       - name: Azure Login
         uses: azure/login@v2
         with:
