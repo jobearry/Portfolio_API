@@ -18,6 +18,7 @@ using System.Text;
 using Portfolio_API.Mapper.EmployeeManagement;
 using Portfolio_API.DataAccess.Repositories.ResumeRepository;
 using Portfolio_API.Services.Resume;
+using Portfolio_API.DataAccess.Data.ScaffoldExisting;
 
 namespace Portfolio_API
 {
@@ -28,10 +29,12 @@ namespace Portfolio_API
             // Read connection string from appsettings.json or environment variables
             var employeeConnectionString = configuration.GetConnectionString("SqLiteEmployeeConnection");
             var resumeConnectionString = configuration.GetConnectionString("SqLiteResumeConnection");
+            var jdbConnectionString = configuration.GetConnectionString("JDBConnection");
 
             // Register DbContext
             services.AddDbContext<EmployeeDbContext>(options => options.UseSqlite(employeeConnectionString));
             services.AddDbContext<ResumeDbContext>(options => options.UseSqlite(resumeConnectionString));
+            services.AddDbContext<JDBContext>(options => options.UseSqlServer(jdbConnectionString));
 
             // Register base repository
             services.AddScoped(typeof(IEmployeeBaseRepository<>), typeof(EmployeeBaseRepository<>));

@@ -17,8 +17,6 @@ public partial class ResumeDbContext : DbContext
     }
 
     public virtual DbSet<Experience> Experiences { get; set; }
-
-    public virtual DbSet<Project> Projects { get; set; }
     public virtual DbSet<TechStackDescription> TechStackDescriptions { get; set; }
 
     public virtual DbSet<TechStackSpec> TechStackSpecs { get; set; }
@@ -41,24 +39,6 @@ public partial class ResumeDbContext : DbContext
             entity.Property(e => e.StartedAt)
                 .HasColumnType("varchar(255)")
                 .HasColumnName("started_at");
-        });
-
-        modelBuilder.Entity<Project>(entity =>
-        {
-            entity.ToTable("projects");
-
-            entity.HasIndex(e => e.ProjectId, "IX_projects_project_id").IsUnique();
-
-            entity.Property(e => e.ProjectId).HasColumnName("project_id");
-            entity.Property(e => e.CoverImg)
-                .HasColumnType("varchar(255)")
-                .HasColumnName("cover_img");
-            entity.Property(e => e.Description)
-                .HasColumnType("varchar(255)")
-                .HasColumnName("description");
-            entity.Property(e => e.Duration)
-                .HasColumnType("varchar(255)")
-                .HasColumnName("duration");
         });
 
         modelBuilder.Entity<TechStackDescription>(entity =>
