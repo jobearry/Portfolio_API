@@ -4,21 +4,16 @@ using Portfolio_API.Mapper;
 using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
 using Portfolio_API.DataAccess.Repositories;
 using Portfolio_API.DataAccess.Repositories.ResumeRepository;
+using Portfolio_API.DataTypes.Interfaces;
 
 namespace Portfolio_API.Services.Resume
 {
-  public interface IResumeBaseService<TEntity>
+  public class ResumeBaseService<TEntity> : IService<TEntity>
       where TEntity : class
   {
-    Task<List<TEntity>> GetAllAsync();
-    Task<TEntity> GetByIdAsync(int id);
-  }
-  public class ResumeBaseService<TEntity> : IResumeBaseService<TEntity>
-      where TEntity : class
-  {
-    private readonly IResumeBaseRepository<TEntity> _repository;
+    private readonly IRepository<TEntity> _repository;
     private readonly ResumeDbContext _resumeDBContext;
-    public ResumeBaseService(IResumeBaseRepository<TEntity> repository, ResumeDbContext resumeDBContext)
+    public ResumeBaseService(IRepository<TEntity> repository, ResumeDbContext resumeDBContext)
     {
       _repository = repository;
       _resumeDBContext = resumeDBContext;

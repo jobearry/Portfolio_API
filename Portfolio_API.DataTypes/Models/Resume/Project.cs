@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Portfolio_API.DataAccess.Data.ScaffoldExisting;
+namespace Portfolio_API.DataTypes.Models.Resume;
 
 public partial class Project
 {

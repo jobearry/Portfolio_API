@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Portfolio_API.DataTypes.Models.Resume;
 
 namespace Portfolio_API.DataAccess.Data.ScaffoldExisting;
 

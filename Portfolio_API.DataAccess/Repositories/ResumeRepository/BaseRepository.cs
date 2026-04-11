@@ -1,15 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Portfolio_API.DataAccess.Contexts;
 using Portfolio_API.DataAccess.Repositories.EmployeeManagementRepository;
+using Portfolio_API.DataTypes.Interfaces;
 
 namespace Portfolio_API.DataAccess.Repositories.ResumeRepository
 {
-  public interface IResumeBaseRepository<T> where T : class
-  {
-    Task<List<T>> GetAllAsync();
-    Task<T?> GetByIdAsync(int id);
-  }
-  public class ResumeBaseRepository<T> : IResumeBaseRepository<T> where T : class
+  public class ResumeBaseRepository<T> : IRepository<T> where T : class
   {
     public readonly ResumeDbContext _dbContext;
     public readonly DbSet<T> _dbSet;

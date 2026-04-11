@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataTypes.Models.Resume;
 using Portfolio_API.Services.Resume;
 
@@ -12,8 +13,8 @@ namespace Portfolio_API.Controllers.Resume
      public abstract class BaseController<TEntity> : ControllerBase
         where TEntity : class
     {
-        protected readonly IResumeBaseService<TEntity> _baseService;
-        protected BaseController(IResumeBaseService<TEntity> baseService)
+        protected readonly IService<TEntity> _baseService;
+        protected BaseController(IService<TEntity> baseService)
         {
             _baseService = baseService;
         }

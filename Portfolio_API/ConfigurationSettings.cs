@@ -19,6 +19,9 @@ using Portfolio_API.Mapper.EmployeeManagement;
 using Portfolio_API.DataAccess.Repositories.ResumeRepository;
 using Portfolio_API.Services.Resume;
 using Portfolio_API.DataAccess.Data.ScaffoldExisting;
+using Portfolio_API.DataTypes.Interfaces;
+using Portfolio_API.DataAccess.Repositories.Project;
+using Portfolio_API.Services.Project;
 
 namespace Portfolio_API
 {
@@ -38,11 +41,13 @@ namespace Portfolio_API
 
             // Register base repository
             services.AddScoped(typeof(IEmployeeBaseRepository<>), typeof(EmployeeBaseRepository<>));
-            services.AddScoped(typeof(IResumeBaseRepository<>), typeof(ResumeBaseRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(ResumeBaseRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(BaseProjectRepository<>));
 
             // Register base Services
             services.AddScoped(typeof(IEmployeeBaseService<,>), typeof(EmployeeBaseService<,>));
-            services.AddScoped(typeof(IResumeBaseService<>), typeof(ResumeBaseService<>));
+            services.AddScoped(typeof(IService<>), typeof(ResumeBaseService<>));
+            services.AddScoped(typeof(IService<>), typeof(BaseProjectService<>));
 
             //Mapper for employee management
             services.AddScoped<IMapper<Employee,DTOEmployee>, EmployeeMapper>();
