@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio_API.DataTypes.Interfaces;
-using Portfolio_API.DataTypes.Models.Resume;
-using Portfolio_API.Services.Resume;
 
-namespace Portfolio_API.Controllers.Resume
+namespace Portfolio_API.Controllers.Portfolio
 {
      public abstract class BaseController<TEntity> : ControllerBase
         where TEntity : class

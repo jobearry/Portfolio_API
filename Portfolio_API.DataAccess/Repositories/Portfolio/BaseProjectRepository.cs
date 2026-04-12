@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Portfolio_API.DataAccess.Data.ScaffoldExisting;
 using Portfolio_API.DataTypes.Interfaces;
 
-namespace Portfolio_API.DataAccess.Repositories.Project;
+namespace Portfolio_API.DataAccess.Repositories.Portfolio;
 
 public class BaseProjectRepository<TEntity> : IRepository<TEntity> where TEntity : class
 {

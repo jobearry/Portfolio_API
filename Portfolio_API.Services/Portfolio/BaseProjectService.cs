@@ -2,7 +2,7 @@ using System;
 using Portfolio_API.DataAccess.Data.ScaffoldExisting;
 using Portfolio_API.DataTypes.Interfaces;
 
-namespace Portfolio_API.Services.Project;
+namespace Portfolio_API.Services.Portfolio;
 
 public class BaseProjectService<TEntity> : IService<TEntity> where TEntity : class
 {

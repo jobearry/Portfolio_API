@@ -12,8 +12,4 @@
     <ProjectReference Include="..\Portfolio_API.Mapper\Portfolio_API.Mapper.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resume\" />
-  </ItemGroup>
-
 </Project>

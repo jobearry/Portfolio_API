@@ -16,12 +16,10 @@ using Portfolio_API.Services;
 using Portfolio_API.Services.Employee;
 using System.Text;
 using Portfolio_API.Mapper.EmployeeManagement;
-using Portfolio_API.DataAccess.Repositories.ResumeRepository;
-using Portfolio_API.Services.Resume;
 using Portfolio_API.DataAccess.Data.ScaffoldExisting;
 using Portfolio_API.DataTypes.Interfaces;
-using Portfolio_API.DataAccess.Repositories.Project;
-using Portfolio_API.Services.Project;
+using Portfolio_API.DataAccess.Repositories.Portfolio;
+using Portfolio_API.Services.Portfolio;
 
 namespace Portfolio_API
 {
@@ -31,22 +29,18 @@ namespace Portfolio_API
         {
             // Read connection string from appsettings.json or environment variables
             var employeeConnectionString = configuration.GetConnectionString("SqLiteEmployeeConnection");
-            var resumeConnectionString = configuration.GetConnectionString("SqLiteResumeConnection");
             var jdbConnectionString = configuration.GetConnectionString("JDBConnection");
 
             // Register DbContext
             services.AddDbContext<EmployeeDbContext>(options => options.UseSqlite(employeeConnectionString));
-            services.AddDbContext<ResumeDbContext>(options => options.UseSqlite(resumeConnectionString));
             services.AddDbContext<JDBContext>(options => options.UseSqlServer(jdbConnectionString));
 
             // Register base repository
             services.AddScoped(typeof(IEmployeeBaseRepository<>), typeof(EmployeeBaseRepository<>));
-            services.AddScoped(typeof(IRepository<>), typeof(ResumeBaseRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(BaseProjectRepository<>));
 
             // Register base Services
             services.AddScoped(typeof(IEmployeeBaseService<,>), typeof(EmployeeBaseService<,>));
-            services.AddScoped(typeof(IService<>), typeof(ResumeBaseService<>));
             services.AddScoped(typeof(IService<>), typeof(BaseProjectService<>));
 
             //Mapper for employee management

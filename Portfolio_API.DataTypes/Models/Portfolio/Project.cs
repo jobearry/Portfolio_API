@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Portfolio_API.DataTypes.Models.Resume;
+namespace Portfolio_API.DataTypes.Models.Portfolio;
 
 public partial class Project
 {
@@ -21,3 +21,4 @@ public partial class Project
 
     public DateTime? UpdatedAt { get; set; }
 }
+
