@@ -4,18 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Portfolio_API.DataAccess.Contexts;
 using Portfolio_API.Mapper;
 using Portfolio_API.DataTypes.Models;
 using Portfolio_API.DataTypes.Models.DTOs;
-using Portfolio_API.DataTypes.Models.EmployeeManagementModels;
-using Portfolio_API.DataTypes.Models.EmployeeManagementModels.DTOs;
 using Portfolio_API.DataAccess.Repositories;
-using Portfolio_API.DataAccess.Repositories.EmployeeManagementRepository;
 using Portfolio_API.Services;
-using Portfolio_API.Services.Employee;
 using System.Text;
-using Portfolio_API.Mapper.EmployeeManagement;
 using Portfolio_API.DataAccess.Data.ScaffoldExisting;
 using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataAccess.Repositories.Portfolio;
@@ -28,25 +22,16 @@ namespace Portfolio_API
         public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             // Read connection string from appsettings.json or environment variables
-            var employeeConnectionString = configuration.GetConnectionString("SqLiteEmployeeConnection");
             var jdbConnectionString = configuration.GetConnectionString("JDBConnection");
 
             // Register DbContext
-            services.AddDbContext<EmployeeDbContext>(options => options.UseSqlite(employeeConnectionString));
             services.AddDbContext<JDBContext>(options => options.UseSqlServer(jdbConnectionString));
 
             // Register base repository
-            services.AddScoped(typeof(IEmployeeBaseRepository<>), typeof(EmployeeBaseRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(BaseProjectRepository<>));
 
             // Register base Services
-            services.AddScoped(typeof(IEmployeeBaseService<,>), typeof(EmployeeBaseService<,>));
             services.AddScoped(typeof(IService<>), typeof(BaseProjectService<>));
-
-            //Mapper for employee management
-            services.AddScoped<IMapper<Employee,DTOEmployee>, EmployeeMapper>();
-            services.AddScoped<IMapper<Attendance, DTOAttendance>, AttendanceMapper>();
-            services.AddScoped<IMapper<User, DTOUser>, UserMapper>();
         }
 
         public static void AddCredits(this IServiceCollection services, IConfiguration configuration)
@@ -70,9 +55,9 @@ namespace Portfolio_API
 
                 options.SwaggerDoc("v2", new OpenApiInfo
                 {
-                    Title = "JDB Portfolio API: Employee Management",
+                    Title = "JDB Portfolio API: Notion Integration",
                     Version = "v2",
-                    Description = "Attendance Management Backend Definition",
+                    Description = "",
                     Contact = contactInfo
                 });
 
