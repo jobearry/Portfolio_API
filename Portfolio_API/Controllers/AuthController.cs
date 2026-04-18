@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
+using Portfolio_API.DataTypes.Options;
 namespace Portfolio_API.Controllers
 {
     [ApiController]

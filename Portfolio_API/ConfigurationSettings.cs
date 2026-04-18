@@ -14,6 +14,9 @@ using Portfolio_API.DataAccess.Data.ScaffoldExisting;
 using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataAccess.Repositories.Portfolio;
 using Portfolio_API.Services.Portfolio;
+using Portfolio_API.Services.Notion;
+using System.Net.Http.Headers;
+using Portfolio_API.DataTypes.Options;
 
 namespace Portfolio_API
 {
@@ -23,6 +26,10 @@ namespace Portfolio_API
         {
             // Read connection string from appsettings.json or environment variables
             var jdbConnectionString = configuration.GetConnectionString("JDBConnection");
+            
+            //Notion
+            services.Configure<NotionOptions>(configuration.GetSection("Notion"));
+            services.AddHttpClient<NotionClientService>();
 
             // Register DbContext
             services.AddDbContext<JDBContext>(options => options.UseSqlServer(jdbConnectionString));
@@ -115,6 +122,18 @@ namespace Portfolio_API
 
             });
 
+        }
+    
+        public static void AddCorsOrigins(this IServiceCollection services)
+        {
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowSPA",
+                    opts => opts.WithOrigins("http://localhost:4200","https://jg-portfolio-dashboard.vercel.app")
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .AllowCredentials());
+            });
         }
     }
 }

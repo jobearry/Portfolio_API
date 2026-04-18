@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Portfolio_API.DataTypes.Models.DTOs
+namespace Portfolio_API.DataTypes.Options
 {
     public class JwtOptions
     {

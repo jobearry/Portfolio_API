@@ -35,4 +35,8 @@
       <ProjectReference Include="..\Portfolio_API.Mapper\Portfolio_API.Mapper.csproj" />
       <ProjectReference Include="..\Portfolio_API.Services\Portfolio_API.Services.csproj" />
    </ItemGroup>
+
+   <ItemGroup>
+     <Folder Include="Controllers\Notion\" />
+   </ItemGroup>
 </Project>
