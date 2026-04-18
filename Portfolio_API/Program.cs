@@ -11,9 +11,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCredits(builder.Configuration);
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddAuthentication(builder.Configuration);
+builder.Services.AddCorsOrigins();
 
 var app = builder.Build();
 
+app.UseCors("AllowSPA");
 //Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
