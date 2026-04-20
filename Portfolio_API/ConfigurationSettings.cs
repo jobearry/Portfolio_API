@@ -129,8 +129,8 @@ namespace Portfolio_API
             string[] allowedOrigins = 
             {
                 "http://localhost:4200",
-                "https://jgolimlim-portfolio.vercel.app/",
-                "https://jgolimlim-web.vercel.app/"
+                "https://jgolimlim-portfolio.vercel.app",
+                "https://jgolimlim-web.vercel.app"
 
             };
             services.AddCors(c =>
