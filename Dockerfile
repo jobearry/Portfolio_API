@@ -45,12 +45,17 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
 WORKDIR /app
 
+# Install ICU globalization libraries
+RUN apk add --no-cache icu-libs
+
+# Ensure .NET uses ICU instead of invariant mode
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
 # Copy everything needed to run the app from the "build" stage.
 COPY --from=build /app .
 
-# Switch to a non-privileged user (defined in the base image) that the app will run under.
-# See https://docs.docker.com/go/dockerfile-user-best-practices/
-# and https://github.com/dotnet/dotnet-docker/discussions/4764
+# Run as non-privileged user
 USER $APP_UID
 
 ENTRYPOINT ["dotnet", "Portfolio_API.dll"]
+
