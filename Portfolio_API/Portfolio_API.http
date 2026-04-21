@@ -1,45 +1,12 @@
+@PORTFOLIO_HOST_LOCAL=http://localhost:5031
+
 GET {{PORTFOLIO_HOST_LOCAL}}/api/v1/TechStackDescription
 Accept: application/json
 ###
 
-
-###
-Get {{PORTFOLIO_HOST_LOCAL}}/api/v2/Employees
-Accept: application/json
-Authorization: Bearer 
-
-###
 POST {{PORTFOLIO_HOST_LOCAL}}/api/v1/Auth/login
 Content-Type: application/json
 
 {
 "key": "admin"
 }
-
-###
-POST {{PORTFOLIO_HOST_LOCAL}}/api/v2/Employees
-Content-Type: application/json
-
-{
-  "employeeId": 0,
-  "name": "Anne Frank",
-  "department": "IT Infra",
-  "position": "IT Engineer",
-  "email": "annefrank@email.com"
-}
-
-###
-PUT {{PORTFOLIO_HOST_LOCAL}}/api/v2/Employees/7
-Content-Type: application/json
-
-{
-  "employeeId": 7,
-  "name": "Anne Toke",
-  "department": "IT Infra",
-  "position": "IT Engineer",
-  "email": "annetoke@email.com"
-}
-
-###
-DELETE {{PORTFOLIO_HOST_LOCAL}}/api/v2/Employees/8
-Accept: application/json
