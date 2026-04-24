@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Portfolio_API.DataTypes\Portfolio_API.DataTypes.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Portfolio\" />
+  </ItemGroup>
+
 </Project>
