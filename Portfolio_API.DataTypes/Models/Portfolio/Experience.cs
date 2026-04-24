@@ -9,7 +9,7 @@ public partial class Experience
 
     public string? CompanyName { get; set; }
 
-    public DateTime? StartedAt { get; set; }
+    public DateTime? FinishedAt { get; set; }
 
     public string? Description { get; set; }
 

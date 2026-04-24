@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,7 @@ namespace Portfolio_API.Controllers.Portfolio
             }
         }
         [HttpPost("new")]
+        [Authorize]
         public async Task<ActionResult<TDto>> AddNewItem([FromBody] TDto newEntity)
         {
             try

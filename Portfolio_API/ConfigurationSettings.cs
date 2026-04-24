@@ -35,7 +35,15 @@ namespace Portfolio_API
             services.AddHttpClient<NotionClientService>();
 
             // Register DbContext
-            services.AddDbContext<JDBContext>(options => options.UseSqlServer(jdbConnectionString));
+            services.AddDbContext<JDBContext>(options => 
+                options.UseSqlServer(jdbConnectionString, 
+                    sqlOpts => sqlOpts.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null
+                    )
+                )
+            );
 
             // Register base repository
             services.AddScoped(typeof(IRepository<>), typeof(BasePortfolioRepository<>));

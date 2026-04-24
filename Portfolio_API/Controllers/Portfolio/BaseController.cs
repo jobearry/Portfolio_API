@@ -39,6 +39,7 @@ namespace Portfolio_API.Controllers.Portfolio
             }
         }
         [HttpPost("new")]
+        [Authorize]
         public async Task<ActionResult<TEntity>> AddNewItem([FromBody] TEntity newEntity)
         {
             try
