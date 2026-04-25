@@ -29,5 +29,7 @@ services:
       - AzureAd__Scope=${AzureAd__Scope}
       - Notion__Token=${Notion__Token}
       - Notion__Version=${Notion__Version}
+      
+      # need to learn more on this
       - DOTNET_ENVIRONMENT=Development
       - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false

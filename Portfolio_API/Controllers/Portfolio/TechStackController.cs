@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio_API.DataAccess.Data.ScaffoldExisting;
 using Portfolio_API.DataTypes.Interfaces;
+using Portfolio_API.DataTypes.Models.DTOs;
+using Portfolio_API.DataTypes.Models.DTOs.Portfolio;
 using Portfolio_API.DataTypes.Models.Portfolio;
 
 namespace Portfolio_API.Controllers.Portfolio
@@ -9,16 +10,16 @@ namespace Portfolio_API.Controllers.Portfolio
     [ApiExplorerSettings(GroupName= "v1")] 
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class TechStackDescriptionController : BaseController<TechStackDescription>
+    public class TechStackDescriptionsController : BaseMappedController<TechStackDescription, DTOTechStackDescription>
     { 
-        public TechStackDescriptionController(IService<TechStackDescription> resumeService) : base(resumeService) { }
+        public TechStackDescriptionsController(IMappedService<TechStackDescription, DTOTechStackDescription> resumeService) : base(resumeService) { }
     }
 
     [ApiExplorerSettings(GroupName= "v1")] 
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class TechStackSpecController : BaseController<TechStackSpec>
+    public class TechStackSpecsController : BaseMappedController<TechStackSpec, DTOTechStackSpec>
     { 
-        public TechStackSpecController(IService<TechStackSpec> resumeService) : base(resumeService) { }
+        public TechStackSpecsController(IMappedService<TechStackSpec, DTOTechStackSpec> resumeService) : base(resumeService) { }
     }
 }

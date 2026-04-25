@@ -6,4 +6,5 @@ namespace Portfolio_API.DataTypes.Interfaces;
   {
     Task<List<T>> GetAllAsync();
     Task<T?> GetByIdAsync(int id);
+    Task AddNewItemAsync(T entity);
   }

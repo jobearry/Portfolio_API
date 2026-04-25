@@ -17,6 +17,9 @@ using Portfolio_API.Services.Portfolio;
 using Portfolio_API.Services.Notion;
 using System.Net.Http.Headers;
 using Portfolio_API.DataTypes.Options;
+using Portfolio_API.DataTypes.Models.Portfolio;
+using Portfolio_API.DataTypes.Models.DTOs.Portfolio;
+using Portfolio_API.Mapper.Portfolio;
 
 namespace Portfolio_API
 {
@@ -32,13 +35,24 @@ namespace Portfolio_API
             services.AddHttpClient<NotionClientService>();
 
             // Register DbContext
-            services.AddDbContext<JDBContext>(options => options.UseSqlServer(jdbConnectionString));
+            services.AddDbContext<JDBContext>(options => 
+                options.UseSqlServer(jdbConnectionString, 
+                    sqlOpts => sqlOpts.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null
+                    )
+                )
+            );
 
             // Register base repository
-            services.AddScoped(typeof(IRepository<>), typeof(BaseProjectRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(BasePortfolioRepository<>));
 
             // Register base Services
-            services.AddScoped(typeof(IService<>), typeof(BaseProjectService<>));
+            services.AddScoped(typeof(IService<>), typeof(BasePortfolioService<>));
+            services.AddScoped(typeof(IMappedService<,>), typeof(BaseMappedPortfolioService<,>));
+            services.AddScoped<IMapper<TechStackDescription,DTOTechStackDescription>, TechStackDescriptionMapper>();
+            services.AddScoped<IMapper<TechStackSpec,DTOTechStackSpec>, TechStackSpecMapper>();
         }
 
         public static void AddCredits(this IServiceCollection services, IConfiguration configuration)

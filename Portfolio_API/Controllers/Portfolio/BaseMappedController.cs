@@ -1,32 +1,30 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Portfolio_API.DataTypes.Interfaces;
 
 namespace Portfolio_API.Controllers.Portfolio
 {
-    public abstract class BaseController<TEntity> : ControllerBase
+    public abstract class BaseMappedController<TEntity, TDto> : ControllerBase
         where TEntity : class
+        where TDto : class
     {
-        protected readonly IService<TEntity> _baseService;
-        protected BaseController(IService<TEntity> baseService)
+        protected readonly IMappedService<TEntity, TDto> _baseService;
+        protected BaseMappedController(IMappedService<TEntity, TDto> baseService)
         {
             _baseService = baseService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TEntity>>> GetAll()
+        public async Task<ActionResult<List<TDto>>> GetAll()
         {
             var items = await _baseService.GetAllAsync();
             return Ok(items);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TEntity>> GetById(int id)
+        public async Task<ActionResult<TDto>> GetById(int id)
         {
             try
             {
@@ -35,12 +33,12 @@ namespace Portfolio_API.Controllers.Portfolio
             }
             catch (KeyNotFoundException)
             {
-               return NotFound($"Data with Id {id} not found");
+                return NotFound($"Data with Id {id} not found");
             }
         }
         [HttpPost("new")]
         [Authorize]
-        public async Task<ActionResult<TEntity>> AddNewItem([FromBody] TEntity newEntity)
+        public async Task<ActionResult<TDto>> AddNewItem([FromBody] TDto newEntity)
         {
             try
             {
@@ -50,11 +48,11 @@ namespace Portfolio_API.Controllers.Portfolio
                     newEntity
                 );
             }
-            catch(DbUpdateException dbex)
+            catch (DbUpdateException dbex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, dbex);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex);
             }

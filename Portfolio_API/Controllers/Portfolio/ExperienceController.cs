@@ -8,8 +8,8 @@ namespace Portfolio_API.Controllers.Portfolio
     [Route("api/v1/[controller]")]
     [ApiExplorerSettings(GroupName= "v1")] 
     [ApiController]
-    public class ExperienceController : BaseController<Experience>
+    public class ExperiencesController : BaseController<Experience>
     {
-         public ExperienceController(IService<Experience> expService) : base(expService) { }
+         public ExperiencesController(IService<Experience> expService) : base(expService) { }
     }
 }
