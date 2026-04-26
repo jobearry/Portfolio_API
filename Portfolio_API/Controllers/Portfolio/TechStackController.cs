@@ -9,6 +9,7 @@ namespace Portfolio_API.Controllers.Portfolio
 {
     [ApiExplorerSettings(GroupName= "v1")] 
     [Route("api/v1/[controller]")]
+    [Tags("TechStack")]
     [ApiController]
     public class TechStackDescriptionsController : BaseMappedController<TechStackDescription, DTOTechStackDescription>
     { 
@@ -17,6 +18,7 @@ namespace Portfolio_API.Controllers.Portfolio
 
     [ApiExplorerSettings(GroupName= "v1")] 
     [Route("api/v1/[controller]")]
+    [Tags("TechStack")]
     [ApiController]
     public class TechStackSpecsController : BaseMappedController<TechStackSpec, DTOTechStackSpec>
     { 

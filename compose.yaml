@@ -31,5 +31,21 @@ services:
       - Notion__Version=${Notion__Version}
       
       # need to learn more on this
-      - DOTNET_ENVIRONMENT=Development
-      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+      - DOTNET_ENVIRONMENT=${DOTNET_ENVIRONMENT}
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=${DOTNET_SYSTEM_GLOBALIZATION_INVARIANT}
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes: 
+  sql_data:
