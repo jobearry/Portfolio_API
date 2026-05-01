@@ -20,5 +20,8 @@ public partial class Project
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
+
+    public virtual ICollection<ExpProject> ExpProjects { get; set; } = new List<ExpProject>();
 }
+
 

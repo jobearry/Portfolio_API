@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio_API.DataTypes.Models.Portfolio;
 
-namespace Portfolio_API.DataAccess.Data.ScaffoldExisting;
+namespace Portfolio_API.DataAccess.Contexts;
 
 public partial class JDBContext : DbContext
 {
@@ -12,6 +11,8 @@ public partial class JDBContext : DbContext
         : base(options)
     {
     }
+
+    public virtual DbSet<ExpProject> ExpProjects { get; set; }
 
     public virtual DbSet<Experience> Experiences { get; set; }
 
@@ -21,11 +22,41 @@ public partial class JDBContext : DbContext
 
     public virtual DbSet<TechStackSpec> TechStackSpecs { get; set; }
 
+    public virtual DbSet<User> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<ExpProject>(entity =>
+        {
+            entity.HasKey(e => new { e.ProjectId, e.TechstackId, e.ExperiencedAt }).HasName("PK_ProjectTechStack");
+
+            entity.ToTable("exp_projects");
+
+            entity.Property(e => e.ProjectId).HasColumnName("project_id");
+            entity.Property(e => e.TechstackId).HasColumnName("techstack_id");
+            entity.Property(e => e.ExperiencedAt)
+                .HasDefaultValue(1)
+                .HasColumnName("experienced_at");
+
+            entity.HasOne(d => d.ExperiencedAtNavigation).WithMany(p => p.ExpProjects)
+                .HasForeignKey(d => d.ExperiencedAt)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectTechStack_Experience");
+
+            entity.HasOne(d => d.Project).WithMany(p => p.ExpProjects)
+                .HasForeignKey(d => d.ProjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectTechStack_Project");
+
+            entity.HasOne(d => d.Techstack).WithMany(p => p.ExpProjects)
+                .HasForeignKey(d => d.TechstackId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectTechStack_TechStack");
+        });
+
         modelBuilder.Entity<Experience>(entity =>
         {
-            entity.HasKey(e => e.ExperienceId).HasName("PK__experien__EB216AFC5362759B");
+            entity.HasKey(e => e.ExperienceId).HasName("PK__experien__EB216AFCB14726DD");
 
             entity.ToTable("experiences");
 
@@ -36,15 +67,15 @@ public partial class JDBContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
+            entity.Property(e => e.FinishedAt).HasColumnName("finished_at");
             entity.Property(e => e.Role)
                 .HasMaxLength(255)
                 .HasColumnName("role");
-            entity.Property(e => e.FinishedAt).HasColumnName("finished_at");
         });
 
         modelBuilder.Entity<Project>(entity =>
         {
-            entity.HasKey(e => e.ProjectId).HasName("PK__projects__BC799E1F26444275");
+            entity.HasKey(e => e.ProjectId).HasName("PK__projects__BC799E1F2A481118");
 
             entity.ToTable("projects");
 
@@ -66,7 +97,7 @@ public partial class JDBContext : DbContext
 
         modelBuilder.Entity<TechStackDescription>(entity =>
         {
-            entity.HasKey(e => e.StackId).HasName("PK__tech_sta__A44AF9293BF4000B");
+            entity.HasKey(e => e.StackId).HasName("PK__tech_sta__A44AF929B7A3A9B6");
 
             entity.ToTable("tech_stack_description");
 
@@ -81,7 +112,7 @@ public partial class JDBContext : DbContext
 
         modelBuilder.Entity<TechStackSpec>(entity =>
         {
-            entity.HasKey(e => e.SpecId).HasName("PK__tech_sta__F670C567E44DDEB0");
+            entity.HasKey(e => e.SpecId).HasName("PK__tech_sta__F670C567B3B5AEFC");
 
             entity.ToTable("tech_stack_spec");
 
@@ -101,6 +132,31 @@ public partial class JDBContext : DbContext
                 .HasForeignKey(d => d.StackId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_stack_spec_description");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.ToTable("users");
+
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .HasColumnName("email");
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .HasColumnName("first_name");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .HasColumnName("last_name");
+            entity.Property(e => e.Location)
+                .HasMaxLength(50)
+                .HasColumnName("location");
+            entity.Property(e => e.UserName)
+                .HasMaxLength(22)
+                .HasColumnName("user_name");
         });
 
         OnModelCreatingPartial(modelBuilder);

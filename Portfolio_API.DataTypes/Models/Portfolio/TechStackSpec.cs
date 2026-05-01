@@ -15,5 +15,7 @@ public partial class TechStackSpec
 
     public int StackId { get; set; }
 
+    public virtual ICollection<ExpProject> ExpProjects { get; set; } = new List<ExpProject>();
+
     public virtual TechStackDescription Stack { get; set; } = null!;
 }

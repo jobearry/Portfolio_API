@@ -13,3 +13,4 @@ public partial class TechStackDescription
 
     public virtual ICollection<TechStackSpec> TechStackSpecs { get; set; } = new List<TechStackSpec>();
 }
+

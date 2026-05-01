@@ -10,7 +10,6 @@ using Portfolio_API.DataTypes.Models.DTOs;
 using Portfolio_API.DataAccess.Repositories;
 using Portfolio_API.Services;
 using System.Text;
-using Portfolio_API.DataAccess.Data.ScaffoldExisting;
 using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataAccess.Repositories.Portfolio;
 using Portfolio_API.Services.Portfolio;
@@ -20,6 +19,7 @@ using Portfolio_API.DataTypes.Options;
 using Portfolio_API.DataTypes.Models.Portfolio;
 using Portfolio_API.DataTypes.Models.DTOs.Portfolio;
 using Portfolio_API.Mapper.Portfolio;
+using Portfolio_API.DataAccess.Contexts;
 
 namespace Portfolio_API
 {
@@ -28,7 +28,7 @@ namespace Portfolio_API
         public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             // Read connection string from appsettings.json or environment variables
-            var jdbConnectionString = configuration.GetConnectionString("JDBConnection");
+            var jdbConnectionString = configuration.GetConnectionString("JDBConnection_prod");
             
             //Notion
             services.Configure<NotionOptions>(configuration.GetSection("Notion"));

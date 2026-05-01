@@ -14,4 +14,6 @@ public partial class Experience
     public string? Description { get; set; }
 
     public string Role { get; set; } = null!;
+
+    public virtual ICollection<ExpProject> ExpProjects { get; set; } = new List<ExpProject>();
 }
