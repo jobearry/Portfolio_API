@@ -28,7 +28,7 @@ namespace Portfolio_API
         public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             // Read connection string from appsettings.json or environment variables
-            var jdbConnectionString = configuration.GetConnectionString("JDBConnection_prod");
+            var jdbConnectionString = configuration.GetConnectionString("JDBConnection");
             
             //Notion
             services.Configure<NotionOptions>(configuration.GetSection("Notion"));
