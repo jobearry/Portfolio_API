@@ -19,7 +19,7 @@ namespace Portfolio_API.Controllers.Portfolio
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TEntity>>> GetAll()
+        public virtual async Task<ActionResult<List<TEntity>>> GetAll()
         {
             var items = await _baseService.GetAllAsync();
             return Ok(items);

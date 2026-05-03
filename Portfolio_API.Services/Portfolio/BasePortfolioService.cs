@@ -8,8 +8,8 @@ namespace Portfolio_API.Services.Portfolio;
 public class BasePortfolioService<TEntity> : IService<TEntity>
   where TEntity : class
 {
-  private readonly IRepository<TEntity> _repository;
-  private readonly JDBContext _context;
+  protected readonly IRepository<TEntity> _repository;
+  protected readonly JDBContext _context;
   public BasePortfolioService(IRepository<TEntity> repository, JDBContext context)
   {
     _context = context;

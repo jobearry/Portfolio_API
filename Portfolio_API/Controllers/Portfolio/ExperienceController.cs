@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataTypes.Models.Portfolio;
+using Portfolio_API.Services.Portfolio;
 
 namespace Portfolio_API.Controllers.Portfolio
 {
@@ -10,6 +11,7 @@ namespace Portfolio_API.Controllers.Portfolio
     [ApiController]
     public class ExperiencesController : BaseController<Experience>
     {
-         public ExperiencesController(IService<Experience> expService) : base(expService) { }
+        public ExperiencesController(PortfolioExperienceService expService) : base(expService) { }
+
     }
 }

@@ -53,6 +53,7 @@ namespace Portfolio_API
             services.AddScoped(typeof(IMappedService<,>), typeof(BaseMappedPortfolioService<,>));
             services.AddScoped<IMapper<TechStackDescription,DTOTechStackDescription>, TechStackDescriptionMapper>();
             services.AddScoped<IMapper<TechStackSpec,DTOTechStackSpec>, TechStackSpecMapper>();
+            services.AddScoped<PortfolioExperienceService>();
         }
 
         public static void AddCredits(this IServiceCollection services, IConfiguration configuration)
