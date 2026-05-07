@@ -14,7 +14,6 @@ using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataAccess.Repositories.Portfolio;
 using Portfolio_API.Services.Portfolio;
 using Portfolio_API.Services.Notion;
-using System.Net.Http.Headers;
 using Portfolio_API.DataTypes.Options;
 using Portfolio_API.DataTypes.Models.Portfolio;
 using Portfolio_API.DataTypes.Models.DTOs.Portfolio;
@@ -51,11 +50,15 @@ namespace Portfolio_API
             // Register base Services
             services.AddScoped(typeof(IService<>), typeof(BasePortfolioService<>));
             services.AddScoped(typeof(IMappedService<,>), typeof(BaseMappedPortfolioService<,>));
-            services.AddScoped<IMapper<TechStackDescription,DTOTechStackDescription>, TechStackDescriptionMapper>();
-            services.AddScoped<IMapper<TechStackSpec,DTOTechStackSpec>, TechStackSpecMapper>();
+            services.AddScoped<IMapper<TechStackDescription, DTOTechStackDescription>, TechStackDescriptionMapper>();
+            services.AddScoped<IMapper<TechStackSpec, DTOTechStackSpec>, TechStackSpecMapper>();
+
+            services.AddScoped<IMapper<Experience, DTOExperience>, ExperiencesMapper>();
+            services.AddScoped<IPortfolioExperienceService, PortfolioExperienceService>();
+            services.AddScoped<IPortfolioExperienceRepository, PortfolioExperienceRepository>();
         }
 
-        public static void AddCredits(this IServiceCollection services, IConfiguration configuration)
+        public static void AddSwaggerConfig(this IServiceCollection services, IConfiguration configuration)
         {
             var azureAd = configuration.GetSection("AzureAd").Get<EntraOptions>()!;
 

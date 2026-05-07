@@ -9,9 +9,9 @@ public class BaseMappedPortfolioService<TEntity, TDto> : IMappedService<TEntity,
   where TEntity : class
   where TDto : class
 {
-  private readonly IRepository<TEntity> _repository;
-  private readonly JDBContext _context;
-  private readonly IMapper<TEntity, TDto> _mapper;
+  protected readonly IRepository<TEntity> _repository;
+  protected readonly JDBContext _context;
+  protected readonly IMapper<TEntity, TDto> _mapper;
   public BaseMappedPortfolioService(IRepository<TEntity> repository, JDBContext context, IMapper<TEntity, TDto> mapper)
   {
     _context = context;
