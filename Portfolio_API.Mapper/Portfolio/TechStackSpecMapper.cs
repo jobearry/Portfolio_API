@@ -13,7 +13,6 @@ public class TechStackSpecMapper : IMapper<TechStackSpec, DTOTechStackSpec>
       SpecId = source.SpecId,
       ToolName = source.ToolName,
       ImgSrc = source.ImgSrc,
-      CreatedAt = source.CreatedAt,
       StackId = source.StackId
     };
   }
@@ -25,7 +24,6 @@ public class TechStackSpecMapper : IMapper<TechStackSpec, DTOTechStackSpec>
       SpecId = destination.SpecId,
       ToolName = destination.ToolName,
       ImgSrc = destination.ImgSrc,
-      CreatedAt = destination.CreatedAt,
       StackId = destination.StackId
     };
   }
