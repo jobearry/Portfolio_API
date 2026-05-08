@@ -10,7 +10,8 @@ namespace Portfolio_API.Services.Portfolio;
 
 public interface IPortfolioExperienceService : IMappedService<Experience, DTOExperience>
 {
-    Task<IEnumerable<DTOProject>> GetProjectExperiencesAsync(int experienceId);
+    Task<List<DTOProject>> GetExperienceProjectsAsync(int experienceId);
+    Task<List<DTOExperience>> GetAllWithProjectsAsync();
 }
 public class PortfolioExperienceService : BaseMappedPortfolioService<Experience, DTOExperience>, IPortfolioExperienceService
 {
@@ -21,8 +22,22 @@ public class PortfolioExperienceService : BaseMappedPortfolioService<Experience,
     _expRepository = expRepository;
   }
 
-  public async Task<IEnumerable<DTOProject>> GetProjectExperiencesAsync(int experienceId)
+  public async Task<List<DTOExperience>> GetAllWithProjectsAsync()
   {
-    return await _expRepository.GetProjectsPerExperienceAsync(experienceId);
+    var experiences = await _repository.GetAllAsync();
+    var dtoExperiences = new List<DTOExperience>();
+
+    foreach (var experience in experiences)
+    {
+        var dtoExperience = _mapper.MapToDto(experience);
+        dtoExperience.Projects = await _expRepository.GetExperienceProjectsAsync(experience.ExperienceId);
+        dtoExperiences.Add(dtoExperience);
+    }
+
+    return dtoExperiences;
+  }
+  public async Task<List<DTOProject>> GetExperienceProjectsAsync(int experienceId)
+  {
+    return await _expRepository.GetExperienceProjectsAsync(experienceId);
   }
 }
