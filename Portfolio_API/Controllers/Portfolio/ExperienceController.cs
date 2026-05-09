@@ -18,12 +18,24 @@ namespace Portfolio_API.Controllers.Portfolio
             _expService = expService;
         }
 
+        [HttpGet]
+        public override async Task<ActionResult<List<DTOExperience>>> GetAll([FromQuery] string? include)
+        {
+            if (string.Equals(include, "projects", StringComparison.OrdinalIgnoreCase))
+            {
+                var experiencesWithProjects = await _expService.GetAllWithProjectsAsync();
+                return Ok(experiencesWithProjects);
+            }
+            var experiences = await _expService.GetAllAsync();
+            return Ok(experiences);
+        }
 
         [HttpGet("{id}/projects")]
         public async Task<IActionResult> GetProjectsPerExperience(int id)
         {
-            var projects = await _expService.GetProjectExperiencesAsync(id);
+            var projects = await _expService.GetExperienceProjectsAsync(id);
             return Ok(projects);
         }
+        
     }
 }

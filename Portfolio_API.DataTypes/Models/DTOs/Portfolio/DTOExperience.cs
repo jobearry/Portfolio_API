@@ -13,4 +13,6 @@ public class DTOExperience
   public string? Description { get; set; }
 
   public string Role { get; set; } = null!;
+
+  public List<DTOProject> Projects { get; set; } = new List<DTOProject>();
 }

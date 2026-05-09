@@ -10,14 +10,14 @@ namespace Portfolio_API.DataAccess.Repositories.Portfolio;
 
 public interface IPortfolioExperienceRepository : IRepository<Experience>
 {
-    Task<IEnumerable<DTOProject>> GetProjectsPerExperienceAsync(int experienceId);
+    Task<List<DTOProject>> GetExperienceProjectsAsync(int experienceId);
 }
 public class PortfolioExperienceRepository : BasePortfolioRepository<Experience>, IPortfolioExperienceRepository
 {
   public PortfolioExperienceRepository(JDBContext context) : base(context)
   {}
 
-  public async Task<IEnumerable<DTOProject>> GetProjectsPerExperienceAsync(int experienceId)
+  public async Task<List<DTOProject>> GetExperienceProjectsAsync(int experienceId)
   {
     var experience = await _context.Experiences.Include(e => e.ExpProjects)
                                                 .ThenInclude(ep => ep.Project)
