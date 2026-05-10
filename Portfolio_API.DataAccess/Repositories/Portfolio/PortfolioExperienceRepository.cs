@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Portfolio_API.DataAccess.Contexts;
 using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataTypes.Models.DTOs;
-using Portfolio_API.DataTypes.Models.DTOs.Portfolio;
+using Portfolio_API.DataTypes.Models.Portfolio.DTOs;
 using Portfolio_API.DataTypes.Models.Portfolio;
 
 namespace Portfolio_API.DataAccess.Repositories.Portfolio;

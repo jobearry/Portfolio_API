@@ -1,6 +1,6 @@
 using System;
 
-namespace Portfolio_API.DataTypes.Models.DTOs;
+namespace Portfolio_API.DataTypes.Models.Portfolio.DTOs;
 
 public class DTOTechStackSpec
 {

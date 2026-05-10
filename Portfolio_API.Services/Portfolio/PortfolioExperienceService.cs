@@ -2,22 +2,25 @@ using System;
 using Portfolio_API.DataAccess.Contexts;
 using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataTypes.Models.Portfolio;
-using Portfolio_API.DataTypes.Models.DTOs.Portfolio;
+using Portfolio_API.DataTypes.Models.Portfolio.DTOs;
 using Portfolio_API.Mapper;
 using Portfolio_API.DataAccess.Repositories.Portfolio;
 
 namespace Portfolio_API.Services.Portfolio;
 
-public interface IPortfolioExperienceService : IMappedService<Experience, DTOExperience>
+public interface IPortfolioExperienceService : IMappedService<Experience, DTOExperience, DTOExperienceCreate>
 {
     Task<List<DTOProject>> GetExperienceProjectsAsync(int experienceId);
     Task<List<DTOExperience>> GetAllWithProjectsAsync();
 }
-public class PortfolioExperienceService : BaseMappedPortfolioService<Experience, DTOExperience>, IPortfolioExperienceService
+public class PortfolioExperienceService : BaseMappedPortfolioService<Experience, DTOExperience, DTOExperienceCreate>, IPortfolioExperienceService
 {
   protected readonly IPortfolioExperienceRepository _expRepository;
-  public PortfolioExperienceService(IPortfolioExperienceRepository expRepository, JDBContext context, IMapper<Experience, DTOExperience> mapper)
-    : base(expRepository, context, mapper)
+  public PortfolioExperienceService(
+    IPortfolioExperienceRepository expRepository, 
+    JDBContext context, 
+    IMapper<Experience, DTOExperience, DTOExperienceCreate> mapperRead)
+    : base(expRepository, context, mapperRead)
   {
     _expRepository = expRepository;
   }

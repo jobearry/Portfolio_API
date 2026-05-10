@@ -5,10 +5,6 @@ using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Portfolio_API.Mapper;
-using Portfolio_API.DataTypes.Models;
-using Portfolio_API.DataTypes.Models.DTOs;
-using Portfolio_API.DataAccess.Repositories;
-using Portfolio_API.Services;
 using System.Text;
 using Portfolio_API.DataTypes.Interfaces;
 using Portfolio_API.DataAccess.Repositories.Portfolio;
@@ -16,7 +12,7 @@ using Portfolio_API.Services.Portfolio;
 using Portfolio_API.Services.Notion;
 using Portfolio_API.DataTypes.Options;
 using Portfolio_API.DataTypes.Models.Portfolio;
-using Portfolio_API.DataTypes.Models.DTOs.Portfolio;
+using Portfolio_API.DataTypes.Models.Portfolio.DTOs;
 using Portfolio_API.Mapper.Portfolio;
 using Portfolio_API.DataAccess.Contexts;
 
@@ -49,11 +45,11 @@ namespace Portfolio_API
 
             // Register base Services
             services.AddScoped(typeof(IService<>), typeof(BasePortfolioService<>));
-            services.AddScoped(typeof(IMappedService<,>), typeof(BaseMappedPortfolioService<,>));
-            services.AddScoped<IMapper<TechStackDescription, DTOTechStackDescription>, TechStackDescriptionMapper>();
-            services.AddScoped<IMapper<TechStackSpec, DTOTechStackSpec>, TechStackSpecMapper>();
+            services.AddScoped(typeof(IMappedService<,,>), typeof(BaseMappedPortfolioService<,,>));
+            services.AddScoped<IMapper<TechStackDescription, DTOTechStackDescription, DTOTechStackDescription>, TechStackDescriptionMapper>();
+            services.AddScoped<IMapper<TechStackSpec, DTOTechStackSpec, DTOTechStackSpec>, TechStackSpecMapper>();
 
-            services.AddScoped<IMapper<Experience, DTOExperience>, ExperiencesMapper>();
+            services.AddScoped<IMapper<Experience, DTOExperience, DTOExperienceCreate>, ExperiencesReadMapper>();
             services.AddScoped<IPortfolioExperienceService, PortfolioExperienceService>();
             services.AddScoped<IPortfolioExperienceRepository, PortfolioExperienceRepository>();
         }
