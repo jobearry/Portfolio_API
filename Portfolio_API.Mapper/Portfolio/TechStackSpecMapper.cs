@@ -1,10 +1,10 @@
 using System;
-using Portfolio_API.DataTypes.Models.Portfolio.DTOs;
 using Portfolio_API.DataTypes.Models.Portfolio;
+using Portfolio_API.DataTypes.Models.Portfolio.DTOs;
 
 namespace Portfolio_API.Mapper.Portfolio;
 
-public class TechStackSpecMapper : IMapper<TechStackSpec, DTOTechStackSpec, DTOTechStackSpec>
+public class TechStackSpecMapper: IMapper<TechStackSpec, DTOTechStackSpec, DTOTechStackSpec>
 {
   public DTOTechStackSpec MapToDto(TechStackSpec source)
   {
@@ -17,21 +17,14 @@ public class TechStackSpecMapper : IMapper<TechStackSpec, DTOTechStackSpec, DTOT
     };
   }
 
-  public TechStackSpec MapToEntity(DTOTechStackSpec destination)
+  public TechStackSpec MapToEntity(DTOTechStackSpec createDto)
   {
     return new TechStackSpec()
     {
-      SpecId = destination.SpecId,
-      ToolName = destination.ToolName,
-      ImgSrc = destination.ImgSrc,
-      StackId = destination.StackId
+      ToolName = createDto.ToolName,
+      ImgSrc = createDto.ImgSrc,
+      StackId = createDto.StackId
     };
   }
 
-  // public void UpdateEntity(TechStackSpec entity, DTOTechStackSpec destination)
-  // {
-  //   entity.ToolName = destination.ToolName;
-  //   entity.ImgSrc = destination.ImgSrc;
-  //   entity.StackId = destination.StackId;
-  // }
 }

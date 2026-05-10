@@ -4,7 +4,7 @@ using Portfolio_API.DataTypes.Models.Portfolio;
 
 namespace Portfolio_API.Mapper.Portfolio;
 
-public class TechStackDescriptionMapper: IMapper<TechStackDescription, DTOTechStackDescription, DTOTechStackDescription>
+public class TechStackDescriptionMapper : IMapper<TechStackDescription, DTOTechStackDescription, DTOTechStackDescription>
 {
   public DTOTechStackDescription MapToDto(TechStackDescription source)
   {
@@ -16,20 +16,12 @@ public class TechStackDescriptionMapper: IMapper<TechStackDescription, DTOTechSt
     };
   }
 
-  public TechStackDescription MapToEntity(DTOTechStackDescription source)
+  public TechStackDescription MapToEntity(DTOTechStackDescription createDto)
   {
     return new TechStackDescription()
     {
-      StackId = source.StackId,
-      StackName = source.StackName,
-      CreatedAt = source.CreatedAt,
+      StackName = createDto.StackName,
+      CreatedAt = DateTime.UtcNow
     };
   }
-
-  // public void UpdateEntity(TechStackDescription entity, DTOTechStackDescription destination)
-  // {
-  //   entity.StackName = destination.StackName;
-  //   entity.StackId = destination.StackId;
-  //   entity.CreatedAt = destination.CreatedAt;
-  // }
 }

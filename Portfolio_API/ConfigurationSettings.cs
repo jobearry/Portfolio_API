@@ -40,18 +40,23 @@ namespace Portfolio_API
                 )
             );
 
-            // Register base repository
+            // Base DI for repositories
             services.AddScoped(typeof(IRepository<>), typeof(BasePortfolioRepository<>));
 
-            // Register base Services
+            // Base DI for services and mappers
             services.AddScoped(typeof(IService<>), typeof(BasePortfolioService<>));
             services.AddScoped(typeof(IMappedService<,,>), typeof(BaseMappedPortfolioService<,,>));
-            services.AddScoped<IMapper<TechStackDescription, DTOTechStackDescription, DTOTechStackDescription>, TechStackDescriptionMapper>();
-            services.AddScoped<IMapper<TechStackSpec, DTOTechStackSpec, DTOTechStackSpec>, TechStackSpecMapper>();
 
+            //DI for experiences section
             services.AddScoped<IMapper<Experience, DTOExperience, DTOExperienceCreate>, ExperiencesReadMapper>();
             services.AddScoped<IPortfolioExperienceService, PortfolioExperienceService>();
             services.AddScoped<IPortfolioExperienceRepository, PortfolioExperienceRepository>();
+
+            //DI for tech stack section
+            services.AddScoped<IMapper<TechStackDescription, DTOTechStackDescription, DTOTechStackDescription>, TechStackDescriptionMapper>();
+            services.AddScoped<IMapper<TechStackSpec, DTOTechStackSpec, DTOTechStackSpec>, TechStackSpecMapper>();
+            services.AddScoped<ITechStackMapper, TechStackMapper>();
+            services.AddScoped<IPortfolioTechStackService, PortfolioTechStackService>();
         }
 
         public static void AddSwaggerConfig(this IServiceCollection services, IConfiguration configuration)
