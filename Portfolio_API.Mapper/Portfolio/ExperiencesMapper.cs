@@ -1,10 +1,11 @@
 using System;
-using Portfolio_API.DataTypes.Models.DTOs.Portfolio;
+using Portfolio_API.DataTypes.Models.Portfolio.DTOs;
 using Portfolio_API.DataTypes.Models.Portfolio;
+using Portfolio_API.DataTypes.Interfaces;
 
 namespace Portfolio_API.Mapper.Portfolio;
 
-public class ExperiencesMapper: IMapper<Experience, DTOExperience>
+public class ExperiencesReadMapper: IMapper<Experience, DTOExperience, DTOExperienceCreate>
 {
   public DTOExperience MapToDto(Experience source)
   {
@@ -14,28 +15,23 @@ public class ExperiencesMapper: IMapper<Experience, DTOExperience>
       CompanyName = source.CompanyName,
       FinishedAt = source.FinishedAt,
       Description = source.Description,
+      Responsibility = source.Responsibility,
+      Type = source.Type,
       Role = source.Role
     };
   }
 
-  public Experience MapToEntity(DTOExperience destination)
+  public Experience MapToEntity(DTOExperienceCreate source)
   {
     return new Experience()
     {
-      ExperienceId = destination.ExperienceId,
-      CompanyName = destination.CompanyName,
-      FinishedAt = destination.FinishedAt,
-      Description = destination.Description,
-      Role = destination.Role
+      ExperienceId = source.ExperienceId,
+      CompanyName = source.CompanyName,
+      FinishedAt = source.FinishedAt,
+      Description = source.Description,
+      Responsibility = source.Responsibility,
+      Type = source.Type,
+      Role = source.Role
     };
-  }
-
-  public void UpdateEntity(Experience entity, DTOExperience destination)
-  {
-    entity.CompanyName = destination.CompanyName;
-    entity.ExperienceId = destination.ExperienceId;
-    entity.FinishedAt = destination.FinishedAt;
-    entity.Description = destination.Description;
-    entity.Role = destination.Role;
   }
 }

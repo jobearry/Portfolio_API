@@ -15,5 +15,9 @@ public partial class Experience
 
     public string Role { get; set; } = null!;
 
+    public string? Responsibility { get; set; }
+
+    public string? Type { get; set; }
+
     public virtual ICollection<ExpProject> ExpProjects { get; set; } = new List<ExpProject>();
 }

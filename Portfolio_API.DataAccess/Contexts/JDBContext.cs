@@ -56,7 +56,7 @@ public partial class JDBContext : DbContext
 
         modelBuilder.Entity<Experience>(entity =>
         {
-            entity.HasKey(e => e.ExperienceId).HasName("PK__experien__EB216AFCB14726DD");
+            entity.HasKey(e => e.ExperienceId).HasName("PK__experien__EB216AFCF79CD0E8");
 
             entity.ToTable("experiences");
 
@@ -68,9 +68,15 @@ public partial class JDBContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.FinishedAt).HasColumnName("finished_at");
+            entity.Property(e => e.Responsibility)
+                .HasMaxLength(50)
+                .HasColumnName("responsibility");
             entity.Property(e => e.Role)
                 .HasMaxLength(255)
                 .HasColumnName("role");
+            entity.Property(e => e.Type)
+                .HasMaxLength(20)
+                .HasColumnName("type");
         });
 
         modelBuilder.Entity<Project>(entity =>

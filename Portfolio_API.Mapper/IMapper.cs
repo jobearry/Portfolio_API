@@ -1,9 +1,10 @@
 ﻿namespace Portfolio_API.Mapper
 {
-    public interface IMapper<TSource, TDestination>
+    public interface IMapper<TSource, TDestinationRead, TDestinationCreate>
     {
-        TDestination MapToDto(TSource source);
-        TSource MapToEntity(TDestination destination);
-        void UpdateEntity(TSource source, TDestination destination);
+        TDestinationRead MapToDto(TSource source);
+        TSource MapToEntity(TDestinationCreate destination);
+        // void UpdateEntity(TSource entity, TDestinationUpdate destination);
     }
+
 }

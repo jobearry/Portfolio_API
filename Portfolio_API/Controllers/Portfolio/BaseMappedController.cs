@@ -6,25 +6,26 @@ using Portfolio_API.DataTypes.Interfaces;
 
 namespace Portfolio_API.Controllers.Portfolio
 {
-    public abstract class BaseMappedController<TEntity, TDto> : ControllerBase
+    public abstract class BaseMappedController<TEntity, TDtoRead, TDtoCreate> : ControllerBase
         where TEntity : class
-        where TDto : class
+        where TDtoRead : class
+        where TDtoCreate : class
     {
-        protected readonly IMappedService<TEntity, TDto> _baseService;
-        protected BaseMappedController(IMappedService<TEntity, TDto> baseService)
+        protected readonly IMappedService<TEntity, TDtoRead, TDtoCreate> _baseService;
+        protected BaseMappedController(IMappedService<TEntity, TDtoRead, TDtoCreate> baseService)
         {
             _baseService = baseService;
         }
 
         [HttpGet]
-        public virtual async Task<ActionResult<List<TDto>>> GetAll([FromQuery] string? include)
+        public virtual async Task<ActionResult<List<TDtoRead>>> GetAll([FromQuery] string? include)
         {
             var items = await _baseService.GetAllAsync();
             return Ok(items);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TDto>> GetById(int id)
+        public async Task<ActionResult<TDtoRead>> GetById(int id)
         {
             try
             {
@@ -38,7 +39,7 @@ namespace Portfolio_API.Controllers.Portfolio
         }
         [HttpPost("new")]
         [Authorize]
-        public async Task<ActionResult<TDto>> AddNewItem([FromBody] TDto newEntity)
+        public async Task<ActionResult<TDtoCreate>> AddNewItem([FromBody] TDtoCreate newEntity)
         {
             try
             {

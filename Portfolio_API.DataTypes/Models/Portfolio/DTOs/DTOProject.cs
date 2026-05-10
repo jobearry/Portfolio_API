@@ -1,6 +1,6 @@
 using System;
 
-namespace Portfolio_API.DataTypes.Models.DTOs.Portfolio;
+namespace Portfolio_API.DataTypes.Models.Portfolio.DTOs;
 
 public class DTOProject
 {
