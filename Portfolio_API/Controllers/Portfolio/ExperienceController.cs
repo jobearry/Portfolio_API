@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Portfolio_API.Controllers.Portfolio
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/portfolio/[controller]")]
     [ApiExplorerSettings(GroupName= "v1")] 
     [ApiController]
     public class ExperiencesController : ControllerBase
