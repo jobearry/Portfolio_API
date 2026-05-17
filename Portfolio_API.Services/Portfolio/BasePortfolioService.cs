@@ -16,6 +16,7 @@ public class BasePortfolioService<TEntity> : IService<TEntity>
     _repository = repository;
   }
 
+  public virtual async Task<int> GetCountAsync() => await _repository.GetCountAsync();
   public virtual async Task<List<TEntity>> GetAllAsync()
   {
     var entities = await _repository.GetAllAsync();
