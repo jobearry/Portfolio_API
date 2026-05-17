@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Portfolio_API.Controllers.Portfolio
 {
-    [Route("api/v1/portfolio/[controller]")]
-    [ApiExplorerSettings(GroupName= "v1")] 
     [ApiController]
+    [ApiExplorerSettings(GroupName= "v1")] 
+    [Tags("Portfolio")]
+    [Route("api/v1/portfolio/[controller]")]
     public class ExperiencesController : ControllerBase
     {
         private readonly IPortfolioExperienceService _expService;

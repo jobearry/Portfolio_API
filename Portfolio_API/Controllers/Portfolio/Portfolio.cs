@@ -10,7 +10,7 @@ using Portfolio_API.Services.Portfolio;
 namespace Portfolio_API.Controllers.Portfolio
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/portfolio")]
     [ApiExplorerSettings(GroupName= "v1")] 
     public class Portfolio : ControllerBase
     {

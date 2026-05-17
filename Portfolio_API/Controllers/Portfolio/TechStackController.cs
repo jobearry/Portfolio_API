@@ -11,6 +11,7 @@ namespace Portfolio_API.Controllers.Portfolio
 {
     [ApiExplorerSettings(GroupName= "v1")] 
     [Route("api/v1/portfolio/[controller]")]
+    [Tags("Portfolio")]
     [ApiController]
     public class TechStackController: ControllerBase
     { 
