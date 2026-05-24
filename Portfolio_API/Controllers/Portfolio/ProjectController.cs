@@ -6,8 +6,8 @@ using Portfolio_API.DataTypes.Models.Portfolio;
 namespace Portfolio_API.Controllers.Portfolio
 {
     [ApiExplorerSettings(GroupName= "v1")] 
-    [Route("api/v1/portfolio/[controller]")]
-    [Tags("Portfolio")]
+    [Route("api/v1/portfolio/projects")]
+    [Tags("Projects")]
     [ApiController]
     public class ProjectsController : BaseController<Project>
     {

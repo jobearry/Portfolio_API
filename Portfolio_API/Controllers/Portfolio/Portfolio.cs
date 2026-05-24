@@ -12,6 +12,7 @@ namespace Portfolio_API.Controllers.Portfolio
     [ApiController]
     [Route("api/v1/portfolio")]
     [ApiExplorerSettings(GroupName= "v1")] 
+    [Tags("Others")]
     public class Portfolio : ControllerBase
     {
         private readonly IService<Experience> _baseExpService;

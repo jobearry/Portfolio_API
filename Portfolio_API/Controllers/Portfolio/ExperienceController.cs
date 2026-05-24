@@ -11,8 +11,8 @@ namespace Portfolio_API.Controllers.Portfolio
 {
     [ApiController]
     [ApiExplorerSettings(GroupName= "v1")] 
-    [Tags("Portfolio")]
-    [Route("api/v1/portfolio/[controller]")]
+    [Route("api/v1/portfolio/experiences")]
+    [Tags("Experiences")]
     public class ExperiencesController : ControllerBase
     {
         private readonly IPortfolioExperienceService _expService;
