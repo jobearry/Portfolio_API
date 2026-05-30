@@ -23,5 +23,11 @@ namespace Portfolio_API.Controllers.Notion
             return Ok(result); // returns raw JSON string
         }
 
+        [HttpGet("query/{pageId}/count")]
+        public async Task<IActionResult> QueryPageCount(string pageId)
+        {
+            var result = await _notionClient.QueryPageAsync(pageId);
+            return Ok(result.Count);
+        }
     }
 }

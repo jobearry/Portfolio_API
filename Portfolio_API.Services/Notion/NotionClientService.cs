@@ -12,7 +12,7 @@ public interface INotionClientService
 {
   Task<List<PageCard>> QueryPageAsync(string pageId);
 }
-public class NotionClientService: INotionClientService
+public class NotionClientService : INotionClientService
 {
   private readonly HttpClient _httpClient;
   private readonly NotionOptions _opts;
@@ -27,7 +27,7 @@ public class NotionClientService: INotionClientService
   }
 
   public async Task<List<PageCard>> QueryPageAsync(string pageId)
-{
+  {
     var response = await _httpClient.GetAsync(
         $"https://api.notion.com/v1/pages/{pageId}/markdown"
     );
@@ -36,10 +36,10 @@ public class NotionClientService: INotionClientService
     var result = await response.Content.ReadFromJsonAsync<PageMarkdown>();
 
     if (result is null)
-        throw new InvalidOperationException("Failed to deserialize Notion page markdown.");
+      throw new InvalidOperationException("Failed to deserialize Notion page markdown.");
 
     var parsedResult = NotionPageParserUtility.Parse(result.Markdown);
     return parsedResult;
-}
+  }
 
 }

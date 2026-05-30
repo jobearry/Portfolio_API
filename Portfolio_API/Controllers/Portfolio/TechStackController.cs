@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace Portfolio_API.Controllers.Portfolio
 {
     [ApiExplorerSettings(GroupName= "v1")] 
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/portfolio/techstack")]
+    [Tags("TechStack")]
     [ApiController]
     public class TechStackController: ControllerBase
     { 

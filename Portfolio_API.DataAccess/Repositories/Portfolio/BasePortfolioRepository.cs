@@ -14,7 +14,7 @@ public class BasePortfolioRepository<TEntity> : IRepository<TEntity> where TEnti
     _context = context;
     _dbSet = context.Set<TEntity>();
   }
-
+  public async Task<int> GetCountAsync() => await _dbSet.CountAsync();
   public async Task<TEntity?> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
   public async Task<List<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
   public async Task AddNewItemAsync(TEntity entity) {

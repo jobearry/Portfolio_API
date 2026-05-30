@@ -4,6 +4,7 @@ namespace Portfolio_API.DataTypes.Interfaces;
 
 public interface IService<TEntity>
 {
+  Task<int> GetCountAsync();
   Task<List<TEntity>> GetAllAsync();
   Task<TEntity> GetByIdAsync(int id);
   Task AddNewItemAsync(TEntity entity);
