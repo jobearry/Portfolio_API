@@ -12,8 +12,8 @@ using Portfolio_API.DataAccess.Contexts;
 namespace Portfolio_API.DataAccess.Migrations
 {
     [DbContext(typeof(JDBContext))]
-    [Migration("20260501054605_20260501_exp_projects")]
-    partial class _20260501_exp_projects
+    [Migration("20260816152716_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,32 @@ namespace Portfolio_API.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.ExpProject", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int")
+                        .HasColumnName("project_id");
+
+                    b.Property<int>("TechstackId")
+                        .HasColumnType("int")
+                        .HasColumnName("techstack_id");
+
+                    b.Property<int>("ExperiencedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasColumnName("experienced_at");
+
+                    b.HasKey("ProjectId", "TechstackId", "ExperiencedAt")
+                        .HasName("PK_ProjectTechStack");
+
+                    b.HasIndex("ExperiencedAt");
+
+                    b.HasIndex("TechstackId");
+
+                    b.ToTable("exp_projects", (string)null);
+                });
 
             modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.Experience", b =>
                 {
@@ -48,14 +74,24 @@ namespace Portfolio_API.DataAccess.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("finished_at");
 
+                    b.Property<string>("Responsibility")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("responsibility");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("role");
 
+                    b.Property<string>("Type")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("type");
+
                     b.HasKey("ExperienceId")
-                        .HasName("PK__experien__EB216AFC5362759B");
+                        .HasName("PK__experien__EB216AFCF79CD0E8");
 
                     b.ToTable("experiences", (string)null);
                 });
@@ -103,7 +139,7 @@ namespace Portfolio_API.DataAccess.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("ProjectId")
-                        .HasName("PK__projects__BC799E1F26444275");
+                        .HasName("PK__projects__BC799E1F2A481118");
 
                     b.ToTable("projects", (string)null);
                 });
@@ -130,7 +166,7 @@ namespace Portfolio_API.DataAccess.Migrations
                         .HasColumnName("stack_name");
 
                     b.HasKey("StackId")
-                        .HasName("PK__tech_sta__A44AF9293BF4000B");
+                        .HasName("PK__tech_sta__A44AF929B7A3A9B6");
 
                     b.ToTable("tech_stack_description", (string)null);
                 });
@@ -166,11 +202,83 @@ namespace Portfolio_API.DataAccess.Migrations
                         .HasColumnName("tool_name");
 
                     b.HasKey("SpecId")
-                        .HasName("PK__tech_sta__F670C567E44DDEB0");
+                        .HasName("PK__tech_sta__F670C567B3B5AEFC");
 
                     b.HasIndex("StackId");
 
                     b.ToTable("tech_stack_spec", (string)null);
+                });
+
+            modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("first_name");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("last_name");
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("location");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(22)
+                        .HasColumnType("nvarchar(22)")
+                        .HasColumnName("user_name");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.ExpProject", b =>
+                {
+                    b.HasOne("Portfolio_API.DataTypes.Models.Portfolio.Experience", "ExperiencedAtNavigation")
+                        .WithMany("ExpProjects")
+                        .HasForeignKey("ExperiencedAt")
+                        .IsRequired()
+                        .HasConstraintName("FK_ProjectTechStack_Experience");
+
+                    b.HasOne("Portfolio_API.DataTypes.Models.Portfolio.Project", "Project")
+                        .WithMany("ExpProjects")
+                        .HasForeignKey("ProjectId")
+                        .IsRequired()
+                        .HasConstraintName("FK_ProjectTechStack_Project");
+
+                    b.HasOne("Portfolio_API.DataTypes.Models.Portfolio.TechStackSpec", "Techstack")
+                        .WithMany("ExpProjects")
+                        .HasForeignKey("TechstackId")
+                        .IsRequired()
+                        .HasConstraintName("FK_ProjectTechStack_TechStack");
+
+                    b.Navigation("ExperiencedAtNavigation");
+
+                    b.Navigation("Project");
+
+                    b.Navigation("Techstack");
                 });
 
             modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.TechStackSpec", b =>
@@ -184,9 +292,24 @@ namespace Portfolio_API.DataAccess.Migrations
                     b.Navigation("Stack");
                 });
 
+            modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.Experience", b =>
+                {
+                    b.Navigation("ExpProjects");
+                });
+
+            modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.Project", b =>
+                {
+                    b.Navigation("ExpProjects");
+                });
+
             modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.TechStackDescription", b =>
                 {
                     b.Navigation("TechStackSpecs");
+                });
+
+            modelBuilder.Entity("Portfolio_API.DataTypes.Models.Portfolio.TechStackSpec", b =>
+                {
+                    b.Navigation("ExpProjects");
                 });
 #pragma warning restore 612, 618
         }

@@ -71,14 +71,24 @@ namespace Portfolio_API.DataAccess.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("finished_at");
 
+                    b.Property<string>("Responsibility")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("responsibility");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("role");
 
+                    b.Property<string>("Type")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("type");
+
                     b.HasKey("ExperienceId")
-                        .HasName("PK__experien__EB216AFCB14726DD");
+                        .HasName("PK__experien__EB216AFCF79CD0E8");
 
                     b.ToTable("experiences", (string)null);
                 });

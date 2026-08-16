@@ -20,10 +20,10 @@ public class PortfolioExperienceRepository : BasePortfolioRepository<Experience>
   public async Task<List<DTOProject>> GetExperienceProjectsAsync(int experienceId)
   {
     var experience = await _context.Experiences.Include(e => e.ExpProjects)
-                                                .ThenInclude(ep => ep.Project)
-                                                .Include(e => e.ExpProjects)
-                                                .ThenInclude(p => p.Techstack)
-                                                .FirstOrDefaultAsync(e => e.ExperienceId == experienceId);
+                                               .ThenInclude(ep => ep.Project)
+                                               .Include(e => e.ExpProjects)
+                                               .ThenInclude(p => p.Techstack)
+                                               .FirstOrDefaultAsync(e => e.ExperienceId == experienceId);
 
     if (experience is null) throw new KeyNotFoundException("Experience not found");
 
